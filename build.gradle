@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'org.asciidoctor.convert' version '1.5.8'
 	id 'java'
@@ -27,10 +27,6 @@ configurations {
 
 //task('helloworld', { println('helloworld') })
 
-repositories {
-	mavenCentral()
-}
-
 ext {
 //	set('snippetsDir', file("build/generated-snippets"))
 //	set('springBootAdminVersion', "2.2.3")
@@ -44,7 +40,7 @@ dependencies {
 	}
 //	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 //	implementation 'org.springframework.boot:spring-boot-starter-amqp'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -54,6 +50,8 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web') {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 	}
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 //	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 //	implementation 'de.codecentric:spring-boot-admin-starter-client'
 //	implementation 'de.codecentric:spring-boot-admin-starter-server'
@@ -77,6 +75,11 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.11.1'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.11.1'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.1'
+	implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.4'
+	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.3.0'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -115,3 +118,7 @@ allprojects {
 		mavenCentral()
 	}
 }
+
+//repositories {
+//	mavenCentral()
+//}

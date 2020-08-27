@@ -46,3 +46,30 @@ spring:
 #      max-idle:
 #    initConnectionSqls
 #    init
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  redis:
+    host: 192.168.124.221
+    port: 6379
+    timeout: 0
+    password:
+
+logging:
+  level:
+   com.paladin.account: DEBUG
+pagehelper:
+#  自动监测，可以不设置
+  dialect-alias: mysql=com.github.pagehelper.dialect.helper.MySqlDialect
+  auto-dialect: true
+  offset-as-page-num: false
+  row-bounds-with-count: false
+  auto-runtime-dialect: false
+  close-conn: true
+  default-count: true
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  page-size-zero: true
