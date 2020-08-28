@@ -56,6 +56,12 @@ spring:
     port: 6379
     timeout: 0
     password:
+#  mail:
+#    protocol: smtp
+#    host: smtp.xxx.com
+#    port: 25
+#    username:
+#    password:
 
 logging:
   level:

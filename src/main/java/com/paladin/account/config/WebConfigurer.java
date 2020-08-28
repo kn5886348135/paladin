@@ -4,12 +4,19 @@ import com.paladin.account.resp.RespResult;
 import com.paladin.account.resp.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +31,11 @@ import java.util.List;
 public class WebConfigurer extends WebMvcConfigurationSupport {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
+
+    /**
+     * TODO  修改为自己的需求
+     */
+    private static final String IZATION = "CHUCHEN";
 
     // 自定义消息转换器
     @Override
@@ -110,4 +122,62 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         result.buildInternalServerError(500, request.getRequestURI() + "ServiceException", e.getMessage());
         return null;
     }
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+//        super.addInterceptors(registry);
+        registry.addInterceptor(new HandlerInterceptorAdapter() {
+            /**
+             * This implementation always returns {@code true}.
+             * @param request
+             * @param response
+             * @param handler
+             */
+            @Override
+            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//                return super.preHandle(request, response, handler);
+                String ization = request.getHeader("ization");
+                if (IZATION.equals(ization)) {
+                    return true;
+                } else {
+//                    RetResult<Object> result = new RetResult<>();
+//                    result.setCode(RetCode.UNAUTHORIZED).setMsg("签名认证失败");
+//                    responseResult(response, result);
+//                    return false;
+                    return true;
+                }
+            }
+        }).addPathPatterns("/");
+    }
+
+//    private void responseResult(HttpServletResponse response, RetResult<Object> result) {
+//        response.setCharacterEncoding("UTF-8");
+//        response.setHeader("Content-type", "application/json;charset=UTF-8");
+//        response.setStatus(200);
+//        try {
+//            response.getWriter().write(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
+//        } catch (IOException ex) {
+//            LOGGER.error(ex.getMessage());
+//        }
+
+    private CorsConfiguration buildConfig() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        //请求方法    config.addAllowedMethod(HttpMethod.GET);
+        config.addAllowedMethod(HttpMethod.POST);
+        config.addAllowedMethod(HttpMethod.PUT);
+        config.addAllowedMethod(HttpMethod.DELETE);
+        config.addAllowedMethod(HttpMethod.OPTIONS);
+        return config;
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+        //处理全部请求路径
+        configSource.registerCorsConfiguration("/**", buildConfig());
+        return new CorsFilter(configSource);
+    }
+
 }
