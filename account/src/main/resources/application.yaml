@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://192.168.124.221:3306/paladin?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 #    driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     #连接池配置
@@ -46,7 +46,6 @@ spring:
 #      max-idle:
 #    initConnectionSqls
 #    init
-
   mvc:
     throw-exception-if-no-handler-found: true
   resources:
@@ -56,6 +55,7 @@ spring:
     port: 6379
     timeout: 0
     password:
+
 #  mail:
 #    protocol: smtp
 #    host: smtp.xxx.com
