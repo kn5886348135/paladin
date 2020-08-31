@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.MessageFormat;
 
 /**
@@ -19,7 +20,9 @@ import java.text.MessageFormat;
  *  @Description:
  *  @date: created in 2020/7/31 0:25
  */
-public class RespResult {
+public class RespResult implements Serializable {
+    private static final long serialVersionUID = -2757635913593029410L;
+    public static final Logger LOGGER = LoggerFactory.getLogger(RespResult.class);
 
     /**
      * 获取当前request scope的response

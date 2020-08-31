@@ -25,4 +25,8 @@ public class RespOk implements Serializable {
         this.data = data;
     }
 
+    public RespOk(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }
