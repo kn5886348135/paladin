@@ -31,19 +31,19 @@ public enum MessageCode {
     INTERNAL_SERVER_ERROR(500,"服务器内部错误");
 
 
-    public int code;
-    public String msg;
+    private final int code;
+    private final String message;
 
-    MessageCode(int code, String msg) {
+    MessageCode(int code, String message) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
     }
 
     public int getCode() {
         return code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 }
