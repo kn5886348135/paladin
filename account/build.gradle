@@ -18,7 +18,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
 
 compileJava.options.encoding("UTF-8")
-compileTestJava.options.encoding("UTF_8")
+compileTestJava.options.encoding("UTF-8")
 
 configurations {
 	compileOnly {
@@ -91,7 +91,11 @@ dependencies {
 	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation 'org.apache.poi:poi-ooxml:4.1.2'
 	implementation 'net.coobird:thumbnailator:0.4.12'
-	implementation 'org.projectlombok:lombok:1.18.12'
+
+	annotationProcessor('org.projectlombok:lombok:1.18.12')
+	compileOnly('org.projectlombok:lombok:1.18.12')
+	testAnnotationProcessor('org.projectlombok:lombok:1.18.12')
+	testCompileOnly('org.projectlombok:lombok:1.18.12')
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
