@@ -46,7 +46,7 @@ public class HelloWorldController {
             student.setAdd("宝能科技园" + i + "号");
             studentList.add(student);
         }
-        new RespResult().buildBadRequest(MessageCode.AUTHENCATION_FAILURE.code, MessageCode.AUTHENCATION_FAILURE.msg,
+        new RespResult().buildBadRequest(MessageCode.AUTHENCATION_FAILURE.getCode(), MessageCode.AUTHENCATION_FAILURE.getMessage(),
                 studentList);
 //        return new RespOK("这是一个失败的请求");
         return null;
