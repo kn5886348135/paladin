@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Account;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IAccountService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -39,9 +42,11 @@ public class AccountController {
             @ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
-    public RespOk addAccount(@RequestBody Account account) {
+    public RespOk register(@RequestBody Account account) {
+        String password= account.getPassword();
+        // 密码加密
         boolean result = accountService.save(account);
-        return result ? new RespOk(200, "新增成功") : new RespOk(200, "新增失败");
+        return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
     }
 
     @DeleteMapping(value = "/", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -63,7 +68,7 @@ public class AccountController {
     }
 
     @GetMapping(value = "/list", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "添加用户", notes = "添加用户", responseContainer = "List", response = RespOk.class)
+    @ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
     public RespOk findAccountList(@RequestBody Account account) {
         List<Account> accountList = accountService.list(new QueryWrapper<>(account));
         return new RespOk(200, "查询成功", accountList);
