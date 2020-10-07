@@ -54,7 +54,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.124.221:3306/paladin?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://192.168.0.221:3306/paladin?useUnicode=true&useSSL=false&characterEncoding=utf8");
 //        dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -65,7 +65,6 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
         pc.setParent("com.paladin");
-
 
         // 自定义配置
         InjectionConfig injectionConfig = new InjectionConfig() {
