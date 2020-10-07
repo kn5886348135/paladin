@@ -1,11 +1,11 @@
 package com.paladin.account.entity;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 /**
  * <p>
  * 微信支付记录表
@@ -66,7 +66,7 @@ public class PayAli extends BaseEntity{
     @ApiModelProperty(value = "收款支付宝账号对应的支付宝唯一用户号。以2088开头的纯16位数字")
     private String sellerId;
 
-    @ApiModelProperty(value = "发送请求的时间，格式""yyyy-MM-dd HH:mm:ss""")
+    @ApiModelProperty(value = "发送请求的时间，格式\"yyyy-MM-dd HH:mm:ss\"")
     private String timestamp;
 
     @ApiModelProperty(value = "调用的接口版本，固定为：1.0")

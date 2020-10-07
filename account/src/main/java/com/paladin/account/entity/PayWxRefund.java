@@ -1,10 +1,10 @@
 package com.paladin.account.entity;
-import java.time.LocalDateTime;
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 /**
  * <p>
  * 微信支付退款记录表
@@ -38,7 +38,7 @@ public class PayWxRefund extends BaseEntity{
     @ApiModelProperty(value = "微信支付分配的商户号")
     private String mchId;
 
-    @ApiModelProperty(value = "自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传""WEB""")
+    @ApiModelProperty(value = "自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传\"WEB\\")
     private String deviceInfo;
 
     @ApiModelProperty(value = "随机字符串，长度要求在32位以内。推荐随机数生成算法")
@@ -98,7 +98,7 @@ public class PayWxRefund extends BaseEntity{
     @ApiModelProperty(value = "Y，传入Y时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票	功能，传此字段才可生效")
     private String receipt;
 
-    @ApiModelProperty(value = "该字段常用于线下活动时的场景信息上报，支持上报实际门店信息，商户也可以按需求自己上报相关信息。该字段	为JSON对象数据，对象格式为{""store_info"":{""id"": ""门店ID"",""name"": ""名称"",""area_code"": ""编码"",""address""	: ""地址"" }} ，字段详细说明请点击行前的+展开")
+    @ApiModelProperty(value = "该字段常用于线下活动时的场景信息上报，支持上报实际门店信息，商户也可以按需求自己上报相关信息。该字段	为JSON对象数据，对象格式为{\"store_info\":{\"id\": \"门店ID\",\"name\": \"名称\",\"area_code\": \"编码\",\"address\":\"地址\" }} ，字段详细说明请点击行前的+展开")
     private String sceneInfo;
 
     @ApiModelProperty(value = "SUCCESS/FAIL")
