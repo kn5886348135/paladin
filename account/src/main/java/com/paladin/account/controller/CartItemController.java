@@ -39,7 +39,7 @@ public class CartItemController {
             @ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加购物车", notes = "添加购物车", response = RespOk.class)
-    public RespOk register(@RequestBody CartItem cartItem) {
+    public RespOk addCarItem(@RequestBody CartItem cartItem) {
         boolean result = cartItemService.save(cartItem);
         return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
     }

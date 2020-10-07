@@ -42,7 +42,7 @@ public class AdminController {
             @ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加管理员", notes = "添加管理员", response = RespOk.class)
-    public RespOk register(@RequestBody Admin admin) {
+    public RespOk registerAdmin(@RequestBody Admin admin) {
         String password= admin.getPassword();
         // 密码加密
         boolean result = adminService.save(admin);

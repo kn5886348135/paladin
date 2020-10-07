@@ -39,7 +39,7 @@ public class LevelController {
             @ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加等级", notes = "添加等级", response = RespOk.class)
-    public RespOk register(@RequestBody Level level) {
+    public RespOk addLevel(@RequestBody Level level) {
         boolean result = levelService.save(level);
         return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
     }

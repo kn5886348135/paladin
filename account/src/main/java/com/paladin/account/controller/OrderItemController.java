@@ -39,7 +39,7 @@ public class OrderItemController {
             @ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加订单明细", notes = "添加订单明细", response = RespOk.class)
-    public RespOk register(@RequestBody OrderItem orderItem) {
+    public RespOk generateOrderItem(@RequestBody OrderItem orderItem) {
         boolean result = orderItemService.save(orderItem);
         return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
     }
