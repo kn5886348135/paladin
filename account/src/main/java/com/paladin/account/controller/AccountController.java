@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Account;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IAccountService;
-import com.paladin.account.util.MD5Utils;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,10 +38,6 @@ public class AccountController {
     @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
     public RespOk register(@RequestBody Account account) {
-        String password= account.getPassword();
-        // 密码加密
-        password = MD5Utils.stringToMD5(password);
-        account.setPassword(password);
         boolean result = accountService.save(account);
         return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
     }

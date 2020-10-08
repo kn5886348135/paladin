@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAccountService extends IService<Account> {
 
+    public boolean register(Account account);
 }
