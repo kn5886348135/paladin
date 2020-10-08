@@ -1,14 +1,11 @@
 package com.paladin.account.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Account;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IAccountService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import com.paladin.account.util.MD5Utils;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -35,16 +32,17 @@ public class AccountController {
     @Resource
     private IAccountService accountService;
 
-
     @PostMapping(value = "/", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
             @ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
             @ApiResponse(code = 500, message = "服务器内部错误")})
-//    @ApiImplicitParams({@ApiImplicitParam})
+    @ApiImplicitParams({@ApiImplicitParam})
     @ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
     public RespOk register(@RequestBody Account account) {
         String password= account.getPassword();
         // 密码加密
+        password = MD5Utils.stringToMD5(password);
+        account.setPassword(password);
         boolean result = accountService.save(account);
         return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
     }
