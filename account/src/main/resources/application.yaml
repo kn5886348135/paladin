@@ -29,17 +29,21 @@ spring:
     port: 6379
     timeout: 0
     password:
-
+  application:
+    name: account
+#  cloud:
+#    loadbalancer:
+#      ribbon:
+#        enabled: false
 #  mail:
 #    protocol: smtp
 #    host: smtp.xxx.com
 #    port: 25
 #    username:
 #    password:
-
 logging:
   level:
-   com.paladin.account: DEBUG
+   com.paladin.account: trace
 #pagehelper:
 ##  自动监测，可以不设置
 #  dialect-alias: mysql=com.github.pagehelper.dialect.helper.MySqlDialect
@@ -63,3 +67,8 @@ mybatis-plus:
       update-strategy: not_null
       logic-delete-value: 0
       logic-not-delete-value: 1
+#eureka:
+#  client:
+#    fetch-registry: false
+server:
+  port: 8081
