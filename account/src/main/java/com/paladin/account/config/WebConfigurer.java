@@ -5,6 +5,7 @@ import com.paladin.account.resp.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -14,9 +15,11 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,40 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  @author: paladin
- *  @Description:
- *  @date: created in 2020/8/26 20:42
+ * @author: paladin
+ * @Description:
+ * @date: created in 2020/8/26 20:42
  */
-public class WebConfigurer extends WebMvcConfigurationSupport {
+@Configuration
+@EnableWebMvc
+public class WebConfigurer implements WebMvcConfigurer {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
 
-    /**
-     * TODO  修改为自己的需求
-     */
-    private static final String IZATION = "CHUCHEN";
-
     // 自定义消息转换器
     @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//        super.configureMessageConverters(converters);
-//        FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
-//        converter.setSupportedMediaTypes(getSupportedMediaTypes());
-//        FastJsonConfig config = new FastJsonConfig();
-//        config.setSerializerFeatures(
-//                // String null -> ""
-//                SerializerFeature.WriteNullStringAsEmpty,
-//                // Number null -> 0
-//                SerializerFeature.WriteNullNumberAsZero,
-//                //禁止循环引用
-//                SerializerFeature.DisableCircularReferenceDetect
-//        );
-//        converter.setFastJsonConfig(config);
-//        converter.setDefaultCharset(Charset.forName("UTF-8"));
-//        converters.add(converter);
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     }
 
-    private List<MediaType> getSupportedMediaTypes(){
+    private List<MediaType> getSupportedMediaTypes() {
         List<MediaType> supportedMediaTYpes = new ArrayList<>();
         supportedMediaTYpes.add(MediaType.APPLICATION_JSON);
         supportedMediaTYpes.add(MediaType.APPLICATION_JSON_UTF8);
@@ -81,17 +66,17 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     // 配置全局异常处理
     @Override
-    protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        super.configureHandlerExceptionResolvers(exceptionResolvers);
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
         exceptionResolvers.add(getHandlerExceptionResolver());
     }
 
     /**
      * 创建异常处理
+     *
      * @return
      */
-    private HandlerExceptionResolver getHandlerExceptionResolver(){
-        HandlerExceptionResolver handlerExceptionResolver = new HandlerExceptionResolver(){
+    private HandlerExceptionResolver getHandlerExceptionResolver() {
+        HandlerExceptionResolver handlerExceptionResolver = new HandlerExceptionResolver() {
             @Override
             public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
                                                  Object handler, Exception e) {
@@ -104,12 +89,13 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 根据异常类型确定返回数据
+     *
      * @param request
      * @param handler
      * @param e
      * @return
      */
-    private RespResult getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e){
+    private RespResult getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e) {
         RespResult result = new RespResult();
         if (e instanceof ServiceException) {
             result.buildInternalServerError(500, request.getRequestURI() + "ServiceException", e.getMessage());
@@ -124,30 +110,9 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
     }
 
     @Override
-    protected void addInterceptors(InterceptorRegistry registry) {
-//        super.addInterceptors(registry);
-        registry.addInterceptor(new HandlerInterceptorAdapter() {
-            /**
-             * This implementation always returns {@code true}.
-             * @param request
-             * @param response
-             * @param handler
-             */
-            @Override
-            public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//                return super.preHandle(request, response, handler);
-                String ization = request.getHeader("ization");
-                if (IZATION.equals(ization)) {
-                    return true;
-                } else {
-//                    RetResult<Object> result = new RetResult<>();
-//                    result.setCode(RetCode.UNAUTHORIZED).setMsg("签名认证失败");
-//                    responseResult(response, result);
-//                    return false;
-                    return true;
-                }
-            }
-        }).addPathPatterns("/");
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LocaleChangeInterceptor());
+        registry.addInterceptor(new ThemeChangeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
     }
 
 //    private void responseResult(HttpServletResponse response, RetResult<Object> result) {
@@ -164,7 +129,8 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
-        //请求方法    config.addAllowedMethod(HttpMethod.GET);
+        // 请求方法
+        config.addAllowedMethod(HttpMethod.GET);
         config.addAllowedMethod(HttpMethod.POST);
         config.addAllowedMethod(HttpMethod.PUT);
         config.addAllowedMethod(HttpMethod.DELETE);
