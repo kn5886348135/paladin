@@ -33,7 +33,7 @@ public class CouponProductRelationController {
     @Resource
     private ICouponProductRelationService couponProductRelationService;
 
-    @PostMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
             @ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
             @ApiResponse(code = 500, message = "服务器内部错误")})
@@ -44,25 +44,25 @@ public class CouponProductRelationController {
         return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
     }
 
-    @DeleteMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk deleteAccount(@RequestBody CouponProductRelation couponProductRelation) {
         boolean result = couponProductRelationService.removeById(couponProductRelation.getId());
         return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
     }
 
-    @PutMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk modifyAccount(@RequestBody CouponProductRelation couponProductRelation) {
         boolean result = couponProductRelationService.updateById(couponProductRelation);
         return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
     }
 
-    @GetMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk findAccount(@RequestBody CouponProductRelation couponProductRelation) {
         CouponProductRelation result = couponProductRelationService.getById(couponProductRelation);
         return new RespOk(200, "查询成功", result);
     }
 
-    @GetMapping(value = "/list", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "批量查询优惠券产品关系", notes = "批量查询优惠券产品关系", responseContainer = "List", response = RespOk.class)
     public RespOk findAccountList(@RequestBody CouponProductRelation couponProductRelation) {
         List<CouponProductRelation> couponProductRelationList = couponProductRelationService.list(new QueryWrapper<>(couponProductRelation));
