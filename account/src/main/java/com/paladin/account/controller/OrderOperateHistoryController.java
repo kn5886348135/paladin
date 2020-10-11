@@ -31,25 +31,25 @@ public class OrderOperateHistoryController {
     @Resource
     private IOrderOperateHistoryService orderOperateHistoryService;
 
-    @DeleteMapping(value = "/", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk deleteAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
         boolean result = orderOperateHistoryService.removeById(orderOperateHistory.getId());
         return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
     }
 
-    @PutMapping(value = "/", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk modifyAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
         boolean result = orderOperateHistoryService.updateById(orderOperateHistory);
         return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
     }
 
-    @GetMapping(value = "/", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public RespOk findAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
         OrderOperateHistory result = orderOperateHistoryService.getById(orderOperateHistory);
         return new RespOk(200, "查询成功", result);
     }
 
-    @GetMapping(value = "/list", produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/list", MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "批量查询订单操作历史记录", notes = "批量查询订单操作历史记录", responseContainer = "List", response = RespOk.class)
     public RespOk findAccountList(@RequestBody OrderOperateHistory orderOperateHistory) {
         List<OrderOperateHistory> orderOperateHistoryList = orderOperateHistoryService.list(new QueryWrapper<>(orderOperateHistory));
