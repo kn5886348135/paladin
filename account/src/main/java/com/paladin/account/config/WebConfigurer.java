@@ -35,85 +35,85 @@ import java.util.List;
 @EnableWebMvc
 public class WebConfigurer implements WebMvcConfigurer {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
 
-    // 自定义消息转换器
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    }
+	// 自定义消息转换器
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	}
 
-    private List<MediaType> getSupportedMediaTypes() {
-        List<MediaType> supportedMediaTYpes = new ArrayList<>();
-        supportedMediaTYpes.add(MediaType.APPLICATION_JSON);
-        supportedMediaTYpes.add(MediaType.APPLICATION_JSON_UTF8);
-        supportedMediaTYpes.add(MediaType.APPLICATION_ATOM_XML);
-        supportedMediaTYpes.add(MediaType.APPLICATION_FORM_URLENCODED);
-        supportedMediaTYpes.add(MediaType.APPLICATION_OCTET_STREAM);
-        supportedMediaTYpes.add(MediaType.APPLICATION_PDF);
-        supportedMediaTYpes.add(MediaType.APPLICATION_RSS_XML);
-        supportedMediaTYpes.add(MediaType.APPLICATION_XHTML_XML);
-        supportedMediaTYpes.add(MediaType.APPLICATION_XML);
-        supportedMediaTYpes.add(MediaType.IMAGE_GIF);
-        supportedMediaTYpes.add(MediaType.IMAGE_JPEG);
-        supportedMediaTYpes.add(MediaType.IMAGE_PNG);
-        supportedMediaTYpes.add(MediaType.TEXT_EVENT_STREAM);
-        supportedMediaTYpes.add(MediaType.TEXT_HTML);
-        supportedMediaTYpes.add(MediaType.TEXT_MARKDOWN);
-        supportedMediaTYpes.add(MediaType.TEXT_PLAIN);
-        supportedMediaTYpes.add(MediaType.TEXT_XML);
-        return supportedMediaTYpes;
-    }
+	private List<MediaType> getSupportedMediaTypes() {
+		List<MediaType> supportedMediaTYpes = new ArrayList<>();
+		supportedMediaTYpes.add(MediaType.APPLICATION_JSON);
+		supportedMediaTYpes.add(MediaType.APPLICATION_JSON_UTF8);
+		supportedMediaTYpes.add(MediaType.APPLICATION_ATOM_XML);
+		supportedMediaTYpes.add(MediaType.APPLICATION_FORM_URLENCODED);
+		supportedMediaTYpes.add(MediaType.APPLICATION_OCTET_STREAM);
+		supportedMediaTYpes.add(MediaType.APPLICATION_PDF);
+		supportedMediaTYpes.add(MediaType.APPLICATION_RSS_XML);
+		supportedMediaTYpes.add(MediaType.APPLICATION_XHTML_XML);
+		supportedMediaTYpes.add(MediaType.APPLICATION_XML);
+		supportedMediaTYpes.add(MediaType.IMAGE_GIF);
+		supportedMediaTYpes.add(MediaType.IMAGE_JPEG);
+		supportedMediaTYpes.add(MediaType.IMAGE_PNG);
+		supportedMediaTYpes.add(MediaType.TEXT_EVENT_STREAM);
+		supportedMediaTYpes.add(MediaType.TEXT_HTML);
+		supportedMediaTYpes.add(MediaType.TEXT_MARKDOWN);
+		supportedMediaTYpes.add(MediaType.TEXT_PLAIN);
+		supportedMediaTYpes.add(MediaType.TEXT_XML);
+		return supportedMediaTYpes;
+	}
 
-    // 配置全局异常处理
-    @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-        exceptionResolvers.add(getHandlerExceptionResolver());
-    }
+	// 配置全局异常处理
+	@Override
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+//        exceptionResolvers.add(getHandlerExceptionResolver());
+	}
 
-    /**
-     * 创建异常处理
-     *
-     * @return
-     */
-    private HandlerExceptionResolver getHandlerExceptionResolver() {
-        HandlerExceptionResolver handlerExceptionResolver = new HandlerExceptionResolver() {
-            @Override
-            public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
-                                                 Object handler, Exception e) {
-                getResuleByHeandleException(request, handler, e);
-                return new ModelAndView();
-            }
-        };
-        return handlerExceptionResolver;
-    }
+	/**
+	 * 创建异常处理
+	 *
+	 * @return
+	 */
+	private HandlerExceptionResolver getHandlerExceptionResolver() {
+		HandlerExceptionResolver handlerExceptionResolver = new HandlerExceptionResolver() {
+			@Override
+			public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
+			                                     Object handler, Exception e) {
+				getResuleByHeandleException(request, handler, e);
+				return new ModelAndView();
+			}
+		};
+		return handlerExceptionResolver;
+	}
 
-    /**
-     * 根据异常类型确定返回数据
-     *
-     * @param request
-     * @param handler
-     * @param e
-     * @return
-     */
-    private RespResult getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e) {
-        RespResult result = new RespResult();
-        if (e instanceof ServiceException) {
-            result.buildInternalServerError(500, request.getRequestURI() + "ServiceException", e.getMessage());
-        }
+	/**
+	 * 根据异常类型确定返回数据
+	 *
+	 * @param request
+	 * @param handler
+	 * @param e
+	 * @return
+	 */
+	private RespResult getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e) {
+		RespResult result = new RespResult();
+		if (e instanceof ServiceException) {
+//            result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
+		}
 
-        if (e instanceof NoHandlerFoundException) {
-            result.buildNotFounde(500, request.getRequestURI() + "NoHandlerFoundException", e.getMessage());
-        }
+		if (e instanceof NoHandlerFoundException) {
+//            result.buildNotFounde(500, request.getRequestURI() + "NoHandlerFoundException ", e.getMessage());
+		}
 
-        result.buildInternalServerError(500, request.getRequestURI() + "ServiceException", e.getMessage());
-        return null;
-    }
+//        result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
+		return null;
+	}
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LocaleChangeInterceptor());
-        registry.addInterceptor(new ThemeChangeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
-    }
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LocaleChangeInterceptor());
+		registry.addInterceptor(new ThemeChangeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
+	}
 
 //    private void responseResult(HttpServletResponse response, RetResult<Object> result) {
 //        response.setCharacterEncoding("UTF-8");
@@ -125,25 +125,25 @@ public class WebConfigurer implements WebMvcConfigurer {
 //            LOGGER.error(ex.getMessage());
 //        }
 
-    private CorsConfiguration buildConfig() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        // 请求方法
-        config.addAllowedMethod(HttpMethod.GET);
-        config.addAllowedMethod(HttpMethod.POST);
-        config.addAllowedMethod(HttpMethod.PUT);
-        config.addAllowedMethod(HttpMethod.DELETE);
-        config.addAllowedMethod(HttpMethod.OPTIONS);
-        return config;
-    }
+	private CorsConfiguration buildConfig() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		// 请求方法
+		config.addAllowedMethod(HttpMethod.GET);
+		config.addAllowedMethod(HttpMethod.POST);
+		config.addAllowedMethod(HttpMethod.PUT);
+		config.addAllowedMethod(HttpMethod.DELETE);
+		config.addAllowedMethod(HttpMethod.OPTIONS);
+		return config;
+	}
 
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
-        //处理全部请求路径
-        configSource.registerCorsConfiguration("/**", buildConfig());
-        return new CorsFilter(configSource);
-    }
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
+		//处理全部请求路径
+		configSource.registerCorsConfiguration("/**", buildConfig());
+		return new CorsFilter(configSource);
+	}
 
 }

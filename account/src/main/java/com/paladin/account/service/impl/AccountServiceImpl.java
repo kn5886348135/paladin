@@ -8,6 +8,7 @@ import com.paladin.account.service.IAccountService;
 import com.paladin.account.util.MD5Utils;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -21,22 +22,25 @@ import java.util.List;
 @Service
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements IAccountService {
 
+	@Resource
+	private AccountMapper accountMapper;
 
-    @Override
-    public boolean register(Account account) {
-        String password= account.getPassword();
-        // 密码加密
-        password = MD5Utils.stringToMD5(password);
-        account.setPassword(password);
-        // 用户名去重
-        Account accountQueryWrapper = new Account();
-        accountQueryWrapper.setAccountName(account.getAccountName());
-        List<Account> accountList = list(new QueryWrapper<Account>(accountQueryWrapper));
-        if (accountList != null || accountList.size() > 0) {
-            return false;
-        }
-        boolean result = save(account);
-        return result;
-    }
+	@Override
+	public boolean register(Account account) {
+		String password = account.getPassword();
+		// 密码加密
+		password = MD5Utils.stringToMD5(password);
+		account.setPassword(password);
+		// 用户名去重
+		Account accountQueryWrapper = new Account();
+		accountQueryWrapper.setAccountName(account.getAccountName());
+		List<Account> accountList = list(new QueryWrapper<Account>(accountQueryWrapper));
+		if (accountList != null || accountList.size() > 0) {
+			return false;
+		}
+		boolean result = save(account);
+
+		return result;
+	}
 
 }
