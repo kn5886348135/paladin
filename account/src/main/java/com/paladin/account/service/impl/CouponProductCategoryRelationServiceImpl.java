@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2020-10-07
  */
 @Service
-public class CouponProductCategoryRelationServiceImpl extends ServiceImpl<CouponProductCategoryRelationMapper, CouponProductCategoryRelation> implements ICouponProductCategoryRelationService {
+public class CouponProductCategoryRelationServiceImpl extends ServiceImpl<CouponProductCategoryRelationMapper,
+		CouponProductCategoryRelation> implements ICouponProductCategoryRelationService {
 
 }

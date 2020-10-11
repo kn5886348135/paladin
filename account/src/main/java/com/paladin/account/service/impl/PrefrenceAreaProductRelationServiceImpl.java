@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2020-10-07
  */
 @Service
-public class PrefrenceAreaProductRelationServiceImpl extends ServiceImpl<PrefrenceAreaProductRelationMapper, PrefrenceAreaProductRelation> implements IPrefrenceAreaProductRelationService {
+public class PrefrenceAreaProductRelationServiceImpl extends ServiceImpl<PrefrenceAreaProductRelationMapper,
+		PrefrenceAreaProductRelation> implements IPrefrenceAreaProductRelationService {
 
 }

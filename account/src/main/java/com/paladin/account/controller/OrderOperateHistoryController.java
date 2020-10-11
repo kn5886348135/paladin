@@ -26,33 +26,36 @@ import java.util.List;
 @RequestMapping("/order-operate-history")
 public class OrderOperateHistoryController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(OrderOperateHistoryController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(OrderOperateHistoryController.class);
 
-    @Resource
-    private IOrderOperateHistoryService orderOperateHistoryService;
+	@Resource
+	private IOrderOperateHistoryService orderOperateHistoryService;
 
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk deleteAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
-        boolean result = orderOperateHistoryService.removeById(orderOperateHistory.getId());
-        return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
-    }
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	public RespOk deleteAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
+		boolean result = orderOperateHistoryService.removeById(orderOperateHistory.getId());
+		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	}
 
-    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk modifyAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
-        boolean result = orderOperateHistoryService.updateById(orderOperateHistory);
-        return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
-    }
+	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk modifyAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
+		boolean result = orderOperateHistoryService.updateById(orderOperateHistory);
+		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	}
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk findAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
-        OrderOperateHistory result = orderOperateHistoryService.getById(orderOperateHistory);
-        return new RespOk(200, "查询成功", result);
-    }
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findAccount(@RequestBody OrderOperateHistory orderOperateHistory) {
+		OrderOperateHistory result = orderOperateHistoryService.getById(orderOperateHistory);
+		return new RespOk(200, "查询成功", result);
+	}
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "批量查询订单操作历史记录", notes = "批量查询订单操作历史记录", responseContainer = "List", response = RespOk.class)
-    public RespOk findAccountList(@RequestBody OrderOperateHistory orderOperateHistory) {
-        List<OrderOperateHistory> orderOperateHistoryList = orderOperateHistoryService.list(new QueryWrapper<>(orderOperateHistory));
-        return new RespOk(200, "查询成功", orderOperateHistoryList);
-    }
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询订单操作历史记录", notes = "批量查询订单操作历史记录", responseContainer = "List", response = RespOk.class)
+	public RespOk findAccountList(@RequestBody OrderOperateHistory orderOperateHistory) {
+		List<OrderOperateHistory> orderOperateHistoryList =
+				orderOperateHistoryService.list(new QueryWrapper<>(orderOperateHistory));
+		return new RespOk(200, "查询成功", orderOperateHistoryList);
+	}
 }

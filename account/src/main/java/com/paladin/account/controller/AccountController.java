@@ -21,57 +21,60 @@ import java.util.List;
  * @author paladin
  * @since 2020-08-31
  */
-@Api(value = "用户账户接口",tags = "用户账户接口")
+@Api(value = "用户账户接口", tags = "用户账户接口")
 @RestController
 @RequestMapping("/account")
 public class AccountController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
-    @Resource
-    private IAccountService accountService;
+	@Resource
+	private IAccountService accountService;
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-            @ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-            @ApiResponse(code = 500, message = "服务器内部错误")})
-    @ApiImplicitParams({@ApiImplicitParam})
-    @ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
-    public RespOk register(@RequestBody Account account) {
-        boolean result = accountService.save(account);
-        return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
-    }
+	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
+			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
+			@ApiResponse(code = 500, message = "服务器内部错误")})
+	@ApiImplicitParams({@ApiImplicitParam})
+	@ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
+	public RespOk register(@RequestBody Account account) {
+		boolean result = accountService.save(account);
+		return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
+	}
 
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk deleteAccount(@RequestBody Account account) {
-        boolean result = accountService.removeById(account.getId());
-        return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
-    }
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+            MediaType.APPLICATION_JSON_VALUE)
+	public RespOk deleteAccount(@RequestBody Account account) {
+		boolean result = accountService.removeById(account.getId());
+		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	}
 
-    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk modifyAccount(@RequestBody Account account) {
-        boolean result = accountService.updateById(account);
-        return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
-    }
+	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk modifyAccount(@RequestBody Account account) {
+		boolean result = accountService.updateById(account);
+		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	}
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk findAccount(@RequestBody Account account) {
-        Account result = accountService.getById(account);
-        return new RespOk(200, "查询成功", result);
-    }
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findAccount(@RequestBody Account account) {
+		Account result = accountService.getById(account);
+		return new RespOk(200, "查询成功", result);
+	}
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
-    public RespOk findAccountList(@RequestBody Account account) {
-        List<Account> accountList = accountService.list(new QueryWrapper<>(account));
-        return new RespOk(200, "查询成功", accountList);
-    }
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+            MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
+	public RespOk findAccountList(@RequestBody Account account) {
+		List<Account> accountList = accountService.list(new QueryWrapper<>(account));
+		return new RespOk(200, "查询成功", accountList);
+	}
 
-    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
-    public RespOk hello(@RequestParam String name) {
+	@GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+            MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
+	public RespOk hello(@RequestParam String name) {
 
-        return new RespOk(200, "查询成功", "sadhdfs");
-    }
+		return new RespOk(200, "查询成功", "sadhdfs");
+	}
 
 }

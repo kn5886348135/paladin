@@ -1,7 +1,7 @@
 package com.paladin.account.mapper;
 
-import com.paladin.account.entity.Account;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.paladin.account.entity.Account;
 
 /**
  * <p>

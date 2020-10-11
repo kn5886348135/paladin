@@ -1,10 +1,13 @@
 package com.paladin.account.entity;
+
 import java.time.LocalDateTime;
+
 import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 /**
  * <p>
  * 商家信息表
@@ -15,27 +18,27 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="Merchant对象", description="商家信息表")
-public class Merchant extends BaseEntity{
+@ApiModel(value = "Merchant对象", description = "商家信息表")
+public class Merchant extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商家编号")
-    private Long merchantNo;
+	@ApiModelProperty(value = "商家编号")
+	private Long merchantNo;
 
-    @ApiModelProperty(value = "商家名称")
-    private String merchantName;
+	@ApiModelProperty(value = "商家名称")
+	private String merchantName;
 
-    @ApiModelProperty(value = "商户类型，1个人商户，2企业商户")
-    private String merchantType;
+	@ApiModelProperty(value = "商户类型，1个人商户，2企业商户")
+	private String merchantType;
 
-    @ApiModelProperty(value = "商户证件号码，merchant_type为1是身份证号码，2是企业社会统一信用代码")
-    private String merchantId;
+	@ApiModelProperty(value = "商户证件号码，merchant_type为1是身份证号码，2是企业社会统一信用代码")
+	private String merchantId;
 
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime gmtCreate;
+	@ApiModelProperty(value = "创建时间")
+	private LocalDateTime gmtCreate;
 
-    @ApiModelProperty(value = "组后修改时间")
-    private LocalDateTime gmtModified;
+	@ApiModelProperty(value = "组后修改时间")
+	private LocalDateTime gmtModified;
 
 }

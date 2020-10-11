@@ -6,15 +6,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- *  @author: paladin
- *  @Description:
- *  @date: created in 2020/8/27 23:09
+ * @author: paladin
+ * @Description:
+ * @date: created in 2020/8/27 23:09
  */
 @Aspect
 @Component
 public class AspectLog {
 
-    private static final Logger logger = LoggerFactory.getLogger(AspectLog.class);
+	private static final Logger logger = LoggerFactory.getLogger(AspectLog.class);
 
 //    @Resource
 //    private SystemLogService systemLogService;
@@ -93,7 +93,8 @@ public class AspectLog {
 //     * @return
 //     * @throws NotFoundException
 //     */
-//    private Map<String, Object> getFieldsName(Class cls, String clazzName, String methodName, Object[] args) throws NotFoundException {
+//    private Map<String, Object> getFieldsName(Class cls, String clazzName, String methodName, Object[] args) throws
+//    NotFoundException {
 //        Map<String, Object> map = new HashMap<>();
 //        ClassPool pool = ClassPool.getDefault();
 //        ClassClassPath classPath = new ClassClassPath(cls);

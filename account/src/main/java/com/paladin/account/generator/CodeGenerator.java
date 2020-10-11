@@ -13,85 +13,85 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 
 /**
- *  @author: paladin
- *  @Description: auto generator code
- *  @date: created in 2020/7/30 23:04
+ * @author: paladin
+ * @Description: auto generator code
+ * @date: created in 2020/7/30 23:04
  */
 public class CodeGenerator {
-    /**
-     * <p>
-     * 读取控制台内容
-     * </p>
-     */
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
-    }
+	/**
+	 * <p>
+	 * 读取控制台内容
+	 * </p>
+	 */
+	public static String scanner(String tip) {
+		Scanner scanner = new Scanner(System.in);
+		StringBuilder help = new StringBuilder();
+		help.append("请输入" + tip + "：");
+		System.out.println(help.toString());
+		if (scanner.hasNext()) {
+			String ipt = scanner.next();
+			if (StringUtils.isNotEmpty(ipt)) {
+				return ipt;
+			}
+		}
+		throw new MybatisPlusException("请输入正确的" + tip + "！");
+	}
 
-    public static void main(String[] args) {
-        // 代码生成器
+	public static void main(String[] args) {
+		// 代码生成器
 
-        AutoGenerator generator = new AutoGenerator();
-        generator.setTemplateEngine(new BeetlTemplateEngine());
-        // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+		AutoGenerator generator = new AutoGenerator();
+		generator.setTemplateEngine(new BeetlTemplateEngine());
+		// 全局配置
+		GlobalConfig gc = new GlobalConfig();
 
-        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("paladin");
-        gc.setOpen(false);
-        // 实体属性 Swagger2 注解
-        gc.setSwagger2(true);
+		String projectPath = System.getProperty("user.dir");
+		gc.setOutputDir(projectPath + "/src/main/java");
+		gc.setAuthor("paladin");
+		gc.setOpen(false);
+		// 实体属性 Swagger2 注解
+		gc.setSwagger2(true);
 
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.0.221:3306/paladin?useUnicode=true&useSSL=false&characterEncoding=utf8");
+		// 数据源配置
+		DataSourceConfig dsc = new DataSourceConfig();
+		dsc.setUrl("jdbc:mysql://192.168.0.221:3306/paladin?useUnicode=true&useSSL=false&characterEncoding=utf8");
 //        dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+		dsc.setDriverName("com.mysql.jdbc.Driver");
+		dsc.setUsername("root");
+		dsc.setPassword("123456");
 
 
-        // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.paladin");
+		// 包配置
+		PackageConfig pc = new PackageConfig();
+		pc.setModuleName(scanner("模块名"));
+		pc.setParent("com.paladin");
 
-        // 自定义配置
-        InjectionConfig injectionConfig = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                Map<String, Object> map = new HashMap<>();
-                map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
-                this.setMap(map);
-            }
-        };
+		// 自定义配置
+		InjectionConfig injectionConfig = new InjectionConfig() {
+			@Override
+			public void initMap() {
+				Map<String, Object> map = new HashMap<>();
+				map.put("abc", this.getConfig().getGlobalConfig().getAuthor() + "-mp");
+				this.setMap(map);
+			}
+		};
 
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
-        // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
+		// 如果模板引擎是 freemarker
+		String templatePath = "/templates/mapper.xml.ftl";
+		// 如果模板引擎是 velocity
+		// String templatePath = "/templates/mapper.xml.vm";
 
-        // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
-        // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
+		// 自定义输出配置
+		List<FileOutConfig> focList = new ArrayList<>();
+		// 自定义配置会被优先输出
+		focList.add(new FileOutConfig(templatePath) {
+			@Override
+			public String outputFile(TableInfo tableInfo) {
+				// 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+				return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+						+ "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+			}
+		});
         /*
         cfg.setFileCreate(new IFileCreate() {
             @Override
@@ -107,42 +107,42 @@ public class CodeGenerator {
             }
         });
         */
-        injectionConfig.setFileOutConfigList(focList);
+		injectionConfig.setFileOutConfigList(focList);
 
-        // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
+		// 配置模板
+		TemplateConfig templateConfig = new TemplateConfig();
 
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
-        templateConfig.setXml(null);
+		// 配置自定义输出模板
+		//指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+		// templateConfig.setEntity("templates/entity2.java");
+		// templateConfig.setService();
+		// templateConfig.setController();
+		templateConfig.setXml(null);
 
-        // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("com.paladin.account.entity.BaseEntity");
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
-        // 公共父类
+		// 策略配置
+		StrategyConfig strategy = new StrategyConfig();
+		strategy.setNaming(NamingStrategy.underline_to_camel);
+		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+		strategy.setSuperEntityClass("com.paladin.account.entity.BaseEntity");
+		strategy.setEntityLombokModel(true);
+		strategy.setRestControllerStyle(true);
+		// 公共父类
 //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
-        // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
-        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+		// 写于父类中的公共字段
+		strategy.setSuperEntityColumns("id");
+		strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+		strategy.setControllerMappingHyphenStyle(true);
+		strategy.setTablePrefix(pc.getModuleName() + "_");
 
 
-        generator.setGlobalConfig(gc);
-        generator.setDataSource(dsc);
-        generator.setPackageInfo(pc);
+		generator.setGlobalConfig(gc);
+		generator.setDataSource(dsc);
+		generator.setPackageInfo(pc);
 //        generator.setCfg(injectionConfig);
-        generator.setTemplate(templateConfig);
-        generator.setTemplateEngine(new BeetlTemplateEngine());
-        generator.setStrategy(strategy);
-        generator.execute();
+		generator.setTemplate(templateConfig);
+		generator.setTemplateEngine(new BeetlTemplateEngine());
+		generator.setStrategy(strategy);
+		generator.execute();
 
-    }
+	}
 }

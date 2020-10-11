@@ -1,9 +1,11 @@
 package com.paladin.account.entity;
+
 import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 /**
  * <p>
  * 优选专区
@@ -14,20 +16,20 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="PrefrenceArea对象", description="优选专区")
-public class PrefrenceArea extends BaseEntity{
+@ApiModel(value = "PrefrenceArea对象", description = "优选专区")
+public class PrefrenceArea extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String name;
+	private String name;
 
-    private String subTitle;
+	private String subTitle;
 
-    @ApiModelProperty(value = "展示图片")
-    private byte[] pic;
+	@ApiModelProperty(value = "展示图片")
+	private byte[] pic;
 
-    private Integer sort;
+	private Integer sort;
 
-    private Integer showStatus;
+	private Integer showStatus;
 
 }

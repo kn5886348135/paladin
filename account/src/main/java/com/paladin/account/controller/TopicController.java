@@ -28,44 +28,46 @@ import java.util.List;
 @RequestMapping("/topic")
 public class TopicController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(TopicController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(TopicController.class);
 
-    @Resource
-    private ITopicService topicService;
+	@Resource
+	private ITopicService topicService;
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-            @ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-            @ApiResponse(code = 500, message = "服务器内部错误")})
+	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
+			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
+			@ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
-    @ApiOperation(value = "添加主题", notes = "添加主题", response = RespOk.class)
-    public RespOk addTopic(@RequestBody Topic topic) {
-        boolean result = topicService.save(topic);
-        return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
-    }
+	@ApiOperation(value = "添加主题", notes = "添加主题", response = RespOk.class)
+	public RespOk addTopic(@RequestBody Topic topic) {
+		boolean result = topicService.save(topic);
+		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
+	}
 
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk deleteAccount(@RequestBody Topic topic) {
-        boolean result = topicService.removeById(topic.getId());
-        return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
-    }
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	public RespOk deleteAccount(@RequestBody Topic topic) {
+		boolean result = topicService.removeById(topic.getId());
+		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	}
 
-    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk modifyAccount(@RequestBody Topic topic) {
-        boolean result = topicService.updateById(topic);
-        return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
-    }
+	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk modifyAccount(@RequestBody Topic topic) {
+		boolean result = topicService.updateById(topic);
+		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	}
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk findAccount(@RequestBody Topic topic) {
-        Topic result = topicService.getById(topic);
-        return new RespOk(200, "查询成功", result);
-    }
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findAccount(@RequestBody Topic topic) {
+		Topic result = topicService.getById(topic);
+		return new RespOk(200, "查询成功", result);
+	}
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "批量查询主题", notes = "批量查询主题", responseContainer = "List", response = RespOk.class)
-    public RespOk findAccountList(@RequestBody Topic topic) {
-        List<Topic> topicList = topicService.list(new QueryWrapper<>(topic));
-        return new RespOk(200, "查询成功", topicList);
-    }
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询主题", notes = "批量查询主题", responseContainer = "List", response = RespOk.class)
+	public RespOk findAccountList(@RequestBody Topic topic) {
+		List<Topic> topicList = topicService.list(new QueryWrapper<>(topic));
+		return new RespOk(200, "查询成功", topicList);
+	}
 }

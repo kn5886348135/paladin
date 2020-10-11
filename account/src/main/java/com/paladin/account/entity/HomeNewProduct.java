@@ -1,9 +1,11 @@
 package com.paladin.account.entity;
+
 import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 /**
  * <p>
  * 新鲜好物表
@@ -14,17 +16,17 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="HomeNewProduct对象", description="新鲜好物表")
-public class HomeNewProduct extends BaseEntity{
+@ApiModel(value = "HomeNewProduct对象", description = "新鲜好物表")
+public class HomeNewProduct extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long productId;
+	private Long productId;
 
-    private String productName;
+	private String productName;
 
-    private Integer recommendStatus;
+	private Integer recommendStatus;
 
-    private Integer sort;
+	private Integer sort;
 
 }

@@ -28,44 +28,47 @@ import java.util.List;
 @RequestMapping("/order/return/reason")
 public class OrderReturnReasonController {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(OrderReturnReasonController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(OrderReturnReasonController.class);
 
-    @Resource
-    private IOrderReturnReasonService orderReturnReasonService;
+	@Resource
+	private IOrderReturnReasonService orderReturnReasonService;
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-            @ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-            @ApiResponse(code = 500, message = "服务器内部错误")})
+	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
+			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
+			@ApiResponse(code = 500, message = "服务器内部错误")})
 //    @ApiImplicitParams({@ApiImplicitParam})
-    @ApiOperation(value = "添加订单退货原因", notes = "添加订单退货原因", response = RespOk.class)
-    public RespOk addOrderReturnReason(@RequestBody OrderReturnReason orderReturnReason) {
-        boolean result = orderReturnReasonService.save(orderReturnReason);
-        return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
-    }
+	@ApiOperation(value = "添加订单退货原因", notes = "添加订单退货原因", response = RespOk.class)
+	public RespOk addOrderReturnReason(@RequestBody OrderReturnReason orderReturnReason) {
+		boolean result = orderReturnReasonService.save(orderReturnReason);
+		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
+	}
 
-    @DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk deleteAccount(@RequestBody OrderReturnReason orderReturnReason) {
-        boolean result = orderReturnReasonService.removeById(orderReturnReason.getId());
-        return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
-    }
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	public RespOk deleteAccount(@RequestBody OrderReturnReason orderReturnReason) {
+		boolean result = orderReturnReasonService.removeById(orderReturnReason.getId());
+		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	}
 
-    @PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk modifyAccount(@RequestBody OrderReturnReason orderReturnReason) {
-        boolean result = orderReturnReasonService.updateById(orderReturnReason);
-        return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
-    }
+	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk modifyAccount(@RequestBody OrderReturnReason orderReturnReason) {
+		boolean result = orderReturnReasonService.updateById(orderReturnReason);
+		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	}
 
-    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public RespOk findAccount(@RequestBody OrderReturnReason orderReturnReason) {
-        OrderReturnReason result = orderReturnReasonService.getById(orderReturnReason);
-        return new RespOk(200, "查询成功", result);
-    }
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findAccount(@RequestBody OrderReturnReason orderReturnReason) {
+		OrderReturnReason result = orderReturnReasonService.getById(orderReturnReason);
+		return new RespOk(200, "查询成功", result);
+	}
 
-    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "批量查询订单退货原因", notes = "批量查询订单退货原因", responseContainer = "List", response = RespOk.class)
-    public RespOk findAccountList(@RequestBody OrderReturnReason orderReturnReason) {
-        List<OrderReturnReason> orderReturnReasonList = orderReturnReasonService.list(new QueryWrapper<>(orderReturnReason));
-        return new RespOk(200, "查询成功", orderReturnReasonList);
-    }
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+			MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询订单退货原因", notes = "批量查询订单退货原因", responseContainer = "List", response = RespOk.class)
+	public RespOk findAccountList(@RequestBody OrderReturnReason orderReturnReason) {
+		List<OrderReturnReason> orderReturnReasonList =
+				orderReturnReasonService.list(new QueryWrapper<>(orderReturnReason));
+		return new RespOk(200, "查询成功", orderReturnReasonList);
+	}
 }

@@ -1,9 +1,11 @@
 package com.paladin.account.entity;
+
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
+
 /**
  * <p>
  * 帮助表
@@ -14,23 +16,23 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value="Help对象", description="帮助表")
-public class Help extends BaseEntity{
+@ApiModel(value = "Help对象", description = "帮助表")
+public class Help extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long categoryId;
+	private Long categoryId;
 
-    private String icon;
+	private String icon;
 
-    private String title;
+	private String title;
 
-    private Integer showStatus;
+	private Integer showStatus;
 
-    private LocalDateTime createTime;
+	private LocalDateTime createTime;
 
-    private Integer readCount;
+	private Integer readCount;
 
-    private String content;
+	private String content;
 
 }
