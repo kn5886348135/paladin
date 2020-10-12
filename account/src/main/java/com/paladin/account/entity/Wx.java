@@ -1,10 +1,6 @@
 package com.paladin.account.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -43,11 +39,5 @@ public class Wx extends BaseEntity {
 
 	@ApiModelProperty(value = "备注")
 	private String description;
-
-	@ApiModelProperty(value = "注册时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }

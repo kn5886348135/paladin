@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -87,11 +86,5 @@ public class OrderItem extends BaseEntity {
 
 	@ApiModelProperty(value = "商品销售属性:[{\"key\":\"颜色\",\"value\":\"颜色\"},{\"key\":\"容量\",\"value\":\"4G\"}]")
 	private String productAttr;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }

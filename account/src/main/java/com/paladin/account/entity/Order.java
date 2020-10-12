@@ -1,13 +1,12 @@
 package com.paladin.account.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -146,11 +145,5 @@ public class Order extends BaseEntity {
 
 	@ApiModelProperty(value = "评价时间")
 	private LocalDateTime gmtComment;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }

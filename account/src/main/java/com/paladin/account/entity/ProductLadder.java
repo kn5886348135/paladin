@@ -1,13 +1,11 @@
 package com.paladin.account.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -35,11 +33,5 @@ public class ProductLadder extends BaseEntity {
 
 	@ApiModelProperty(value = "折后价格")
 	private BigDecimal price;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }

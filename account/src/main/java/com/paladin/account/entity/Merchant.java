@@ -1,8 +1,5 @@
 package com.paladin.account.entity;
 
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,11 +31,5 @@ public class Merchant extends BaseEntity {
 
 	@ApiModelProperty(value = "商户证件号码，merchant_type为1是身份证号码，2是企业社会统一信用代码")
 	private String merchantId;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "组后修改时间")
-	private LocalDateTime gmtModified;
 
 }

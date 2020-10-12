@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
  * 微信支付记录表
@@ -126,11 +124,5 @@ public class PayWx extends BaseEntity {
 
 	@ApiModelProperty(value = "当return_code为FAIL时返回信息为错误原因 ，例如签名失败,参数格式校验错误")
 	private String returnMsg;
-
-	@ApiModelProperty(value = "注册时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }

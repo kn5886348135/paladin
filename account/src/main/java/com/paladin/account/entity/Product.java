@@ -1,13 +1,12 @@
 package com.paladin.account.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -147,11 +146,5 @@ public class Product extends BaseEntity {
 
 	@ApiModelProperty(value = "促销类型：0->没有促销使用原价;1->使用促销价；2->使用会员价；3->使用阶梯价格；4->使用满减价格；5->限时购")
 	private Integer promotionType;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后更新时间")
-	private LocalDateTime gmtModified;
 
 }

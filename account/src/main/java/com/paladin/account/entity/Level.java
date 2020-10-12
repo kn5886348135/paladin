@@ -1,16 +1,12 @@
 package com.paladin.account.entity;
 
-import java.math.BigDecimal;
-
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -62,11 +58,5 @@ public class Level extends BaseEntity {
 
 	@ApiModelProperty(value = "备注")
 	private String note;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后更新时间")
-	private LocalDateTime gmtModified;
 
 }

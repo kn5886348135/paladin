@@ -1,8 +1,5 @@
 package com.paladin.account.entity;
 
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,11 +52,5 @@ public class ProductAttribute extends BaseEntity {
 
 	@ApiModelProperty(value = "属性的类型；0->规格；1->参数")
 	private Integer type;
-
-	@ApiModelProperty(value = "创建时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后更新时间")
-	private LocalDateTime gmtModified;
 
 }

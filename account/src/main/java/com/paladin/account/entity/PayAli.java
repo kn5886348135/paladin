@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -35,11 +34,7 @@ public class PayAli extends BaseEntity {
 	@ApiModelProperty(value = "手机号码")
 	private String phone;
 
-	@ApiModelProperty(value = "注册时间")
-	private LocalDateTime gmtCreate;
 
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 	@ApiModelProperty(value = "支付宝分配给开发者的应用ID")
 	private String appId;

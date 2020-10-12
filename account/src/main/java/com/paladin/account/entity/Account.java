@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -77,11 +76,5 @@ public class Account extends BaseEntity {
 
 	@ApiModelProperty(value = "备注")
 	private String description;
-
-	@ApiModelProperty(value = "注册时间")
-	private LocalDateTime gmtCreate;
-
-	@ApiModelProperty(value = "最后修改时间")
-	private LocalDateTime gmtModified;
 
 }
