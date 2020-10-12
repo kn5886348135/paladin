@@ -53,9 +53,6 @@ public class Product extends BaseEntity {
 	@ApiModelProperty(value = "货号")
 	private String productSn;
 
-	@ApiModelProperty(value = "删除状态：0->未删除；1->已删除")
-	private Integer deleteStatus;
-
 	@ApiModelProperty(value = "上架状态：0->下架；1->上架")
 	private Integer publishStatus;
 

@@ -1,5 +1,6 @@
 package com.paladin.account.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +15,9 @@ import java.time.LocalDateTime;
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -7212782796791882630L;
 	private long id;
-	private short delete;
+	private short deleteStatus;
+	@ApiModelProperty(value = "创建时间")
 	private LocalDateTime gmtCreate;
+	@ApiModelProperty(value = "最后修改时间")
 	private LocalDateTime gmtModified;
 }

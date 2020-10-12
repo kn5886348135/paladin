@@ -65,9 +65,6 @@ public class CartItem extends BaseEntity {
 	@ApiModelProperty(value = "修改时间")
 	private LocalDateTime modifyDate;
 
-	@ApiModelProperty(value = "是否删除")
-	private Integer deleteStatus;
-
 	@ApiModelProperty(value = "商品分类")
 	private Long productCategoryId;
 
