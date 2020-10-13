@@ -42,19 +42,15 @@ public class GlobalExceptionHandler {
 		String paramMap = objectMapper.writeValueAsString(request.getParameterMap());
 
 		LOGGER.info("request url {},request method {}, url request params {}, request params map {}, exception {}",
-				request.getRequestURI(),
-				request.getMethod(), urlParams.toString(), paramMap,
-				e.getMessage());
+				request.getRequestURI(), request.getMethod(), urlParams.toString(), paramMap, e.getMessage());
 
 		if (e instanceof ServiceException) {
-			result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
+			result.buildInternalServerError(500, request.getRequestURI() + " ServiceException ", e.getMessage());
+		}else if (e instanceof NoHandlerFoundException) {
+			result.buildNotFounde(500, request.getRequestURI() + " NoHandlerFoundException ", e.getMessage());
+		}else {
+			result.buildInternalServerError(500, request.getRequestURI() + " ServiceException ", e.getMessage());
 		}
-
-		if (e instanceof NoHandlerFoundException) {
-			result.buildNotFounde(500, request.getRequestURI() + "NoHandlerFoundException ", e.getMessage());
-		}
-
-		result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
 
 	}
 }

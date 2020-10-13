@@ -112,7 +112,7 @@ public class RespResult implements Serializable {
 		writeResponse(HttpStatus.NOT_FOUND, code, message, data);
 	}
 
-	private String writeResponse(HttpStatus status, int code, String message, Object data) {
+	private void writeResponse(HttpStatus status, int code, String message, Object data) {
 		assert RESPONSE != null;
 		RESPONSE.setStatus(status.value());
 		RESPONSE.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -133,7 +133,7 @@ public class RespResult implements Serializable {
 
 		try {
 			RESPONSE.getWriter().write(dataStr);
-			return null;
+			RESPONSE.getWriter().flush();
 		} catch (IOException ioException) {
 			logger.info(MessageFormat.format("buildResponse response write IOException {0} {1} {2}",
 					code + "", message, OBJECT_NODE.putPOJO("data", data).toPrettyString()));
