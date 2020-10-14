@@ -3,7 +3,10 @@ package com.paladin.account.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Account;
 import com.paladin.account.resp.RespOk;
+import com.paladin.account.resp.RespResult;
 import com.paladin.account.service.IAccountService;
+import com.paladin.account.util.Constants;
+import com.paladin.account.util.MD5Utils;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +49,9 @@ public class AccountController {
 
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
             MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteAccount(@RequestBody Account account) {
+	public RespOk unRegist(@RequestBody Account account) {
 		boolean result = accountService.removeById(account.getId());
-		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+		return result ? new RespOk(200, "注销成功") : new RespOk(200, "注销失败");
 	}
 
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -57,10 +60,16 @@ public class AccountController {
 		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
 	}
 
-	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findAccount(@RequestBody Account account) {
-		Account result = accountService.getById(account);
-		return new RespOk(200, "查询成功", result);
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk login(@RequestParam String accountName, @RequestParam String password) {
+		boolean result = accountService.login(accountName, password);
+		if (result) {
+			return new RespOk(200, "查询成功", result);
+		}else {
+			RespResult res = new RespResult();
+			res.buildUnAuthorized(401, "用户名或者密码不存在", "");
+			return null;
+		}
 	}
 
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
@@ -71,12 +80,7 @@ public class AccountController {
 		return new RespOk(200, "查询成功", accountList);
 	}
 
-	@GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-            MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
-	public RespOk hello(@RequestParam String name) {
-
-		return new RespOk(200, "查询成功", "sadhdfs");
+	public static void main(String[] args) {
+		System.out.println(MD5Utils.md5Sign("ashdfs"+ Constants.salt));
 	}
-
 }

@@ -10,7 +10,9 @@ import com.paladin.account.util.MD5Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,6 +45,21 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 		boolean result = save(account);
 
 		return result;
+	}
+
+	@Override
+	public boolean login(String accountName, String password) {
+		Account account = new Account();
+		password = password + Constants.salt;
+		password = MD5Utils.md5Sign(password);
+		account.setAccountName(accountName);
+		account.setPassword(password);
+		Map<String, Object> columnMap = new HashMap<>();
+		columnMap.put("account_name", accountName);
+		columnMap.put("password", password);
+		List<Account> accountlis = listByMap(columnMap);
+
+		return accountlis.size() == 1 ? true : false;
 	}
 
 }
