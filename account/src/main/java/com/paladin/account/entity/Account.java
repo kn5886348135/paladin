@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -26,18 +28,23 @@ public class Account extends BaseEntity {
 	@ApiModelProperty(value = "账户ID，保证全局唯一")
 	private String accountId;
 
+	@Size(min = 6, max = 16, message = "用户名只能是6-16个字符")
+	@Pattern(regexp = "^[a-zA-Z0-9_\u4e00-\u9fa5]{6,16}$", message = "用户名只能是中文、英文大小写和下划线")
 	@ApiModelProperty(value = "账户名称")
 	private String accountName;
 
+	@Size(min = 6, max = 16, message = "密码只能是6-16个字符")
 	@ApiModelProperty(value = "密码")
 	private String password;
 
 	@ApiModelProperty(value = "昵称")
 	private String nickname;
 
+	@Pattern(regexp = "[1][3,4,5,6,7,8,9][0-9]{9}", message = "手机号码格式不正确")
 	@ApiModelProperty(value = "手机号码")
 	private String phone;
 
+	@Pattern(regexp = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$", message = "邮箱格式不正确")
 	@ApiModelProperty(value = "邮箱")
 	private String email;
 

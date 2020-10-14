@@ -6,6 +6,7 @@ import com.paladin.account.resp.RespResult;
 import com.paladin.account.resp.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,9 +49,10 @@ public class GlobalExceptionHandler {
 			result.buildInternalServerError(500, request.getRequestURI() + " ServiceException ", e.getMessage());
 		}else if (e instanceof NoHandlerFoundException) {
 			result.buildNotFounde(500, request.getRequestURI() + " NoHandlerFoundException ", e.getMessage());
-		}else {
+		} else if (e instanceof MethodArgumentNotValidException) {
+			result.buildInternalServerError(400, request.getRequestURI() + " MethodArgumentNotValidException ", e.getMessage());
+		} else {
 			result.buildInternalServerError(500, request.getRequestURI() + " ServiceException ", e.getMessage());
 		}
-
 	}
 }

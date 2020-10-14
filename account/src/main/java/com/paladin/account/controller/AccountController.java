@@ -8,6 +8,7 @@ import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -24,6 +25,7 @@ import java.util.List;
 @Api(value = "用户账户接口", tags = "用户账户接口")
 @RestController
 @RequestMapping("/account")
+@Validated
 public class AccountController {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
@@ -31,13 +33,13 @@ public class AccountController {
 	@Resource
 	private IAccountService accountService;
 
-	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/regist", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
 			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
 			@ApiResponse(code = 500, message = "服务器内部错误")})
 	@ApiImplicitParams({@ApiImplicitParam})
 	@ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
-	public RespOk register(@RequestBody Account account) {
+	public RespOk register(@Validated @RequestBody Account account) {
 		boolean result = accountService.save(account);
 		return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
 	}

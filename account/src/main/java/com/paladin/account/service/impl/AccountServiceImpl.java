@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.paladin.account.entity.Account;
 import com.paladin.account.mapper.AccountMapper;
 import com.paladin.account.service.IAccountService;
+import com.paladin.account.util.Constants;
 import com.paladin.account.util.MD5Utils;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +30,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 	public boolean register(Account account) {
 		String password = account.getPassword();
 		// 密码加密
-		password = MD5Utils.stringToMD5(password);
+		password = password + Constants.salt;
+		password = MD5Utils.md5Sign(password);
 		account.setPassword(password);
 		// 用户名去重
 		Account accountQueryWrapper = new Account();
 		accountQueryWrapper.setAccountName(account.getAccountName());
-		List<Account> accountList = list(new QueryWrapper<Account>(accountQueryWrapper));
+		List<Account> accountList = list(new QueryWrapper<>(accountQueryWrapper));
 		if (accountList != null || accountList.size() > 0) {
 			return false;
 		}
