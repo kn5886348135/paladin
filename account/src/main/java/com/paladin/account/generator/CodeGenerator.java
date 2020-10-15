@@ -138,7 +138,7 @@ public class CodeGenerator {
 		generator.setGlobalConfig(gc);
 		generator.setDataSource(dsc);
 		generator.setPackageInfo(pc);
-//        generator.setCfg(injectionConfig);
+        generator.setCfg(injectionConfig);
 		generator.setTemplate(templateConfig);
 		generator.setTemplateEngine(new BeetlTemplateEngine());
 		generator.setStrategy(strategy);
