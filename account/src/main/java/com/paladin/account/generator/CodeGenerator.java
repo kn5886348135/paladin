@@ -77,7 +77,7 @@ public class CodeGenerator {
 		};
 
 		// 如果模板引擎是 freemarker
-		String templatePath = "/templates/mapper.xml.ftl";
+		String templatePath = "/templates/mapper.xml.btl";
 		// 如果模板引擎是 velocity
 		// String templatePath = "/templates/mapper.xml.vm";
 
