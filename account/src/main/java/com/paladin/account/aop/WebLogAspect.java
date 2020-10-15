@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Description: 统一的请求参数和返回结果日志
- * @Author: paladin
+ * @author: paladin
  * @date: 2020/10/8 22:29
  */
 public class WebLogAspect {

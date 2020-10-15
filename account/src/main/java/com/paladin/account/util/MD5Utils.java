@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @Description: MD5签名
- * @Author: paladin
+ * @author: paladin
  * @date: 2020/10/8 22:14
  */
 public class MD5Utils {
