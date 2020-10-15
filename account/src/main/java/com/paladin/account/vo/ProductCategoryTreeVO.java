@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 @ApiModel(value = "ProductCategory对象", description = "产品分类")
-public class ProductCategoryVO implements Serializable {
+public class ProductCategoryTreeVO implements Serializable {
 
 	private static final long serialVersionUID = -7280002012319611014L;
 
@@ -47,5 +47,5 @@ public class ProductCategoryVO implements Serializable {
 	@ApiModelProperty(value = "关键字")
 	private String keywords;
 
-	private List<ProductCategoryVO> categoryVOList;
+	private List<ProductCategoryTreeVO> categoryVOList;
 }

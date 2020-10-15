@@ -23,11 +23,14 @@ public class ProductCategory extends BaseEntity {
 	@ApiModelProperty(value = "上机分类的编号：1表示一级分类")
 	private Long parentNo;
 
+	@ApiModelProperty(value = "分类编号")
+	private String categoryNo;
+
 	@ApiModelProperty(value = "分类名称")
 	private String categoryName;
 
 	@ApiModelProperty(value = "分类级别：1->1级；2->2级")
-	private Integer level;
+	private Integer tier;
 
 	@ApiModelProperty(value = "产品数量")
 	private Integer productCount;

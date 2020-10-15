@@ -2,4 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paladin.account.mapper.ProductCategoryMapper">
 
+    <resultMap id="productCategoryTree" type="com.paladin.account.vo.ProductCategoryTreeVO" >
+        <id column="category_no" property="categoryNo"/>
+        <collection property="categoryVOList" ofType="com.paladin.account.vo.ProductCategoryTreeVO" column="category_no" select="selectProductCategoryByParentNo"/>
+    </resultMap>
+
+    <select id="selectProductCategoryTree" resultType="com.paladin.account.vo.ProductCategoryTreeVO" resultMap="productCategoryTree">
+        SELECT
+            parent_no,
+            category_no,
+            category_name,
+            tier,
+            nav_status,
+            show_status,
+            sort,
+            icon,
+            keywords
+        FROM
+            product_category
+        WHERE
+            parent_no = 0
+        AND
+            tier = 1
+    </select>
+
+    <select id="selectProductCategoryByParentNo" resultMap="productCategoryTree" >
+        SELECT
+            parent_no,
+            category_no,
+            category_name,
+            tier,
+            nav_status,
+            show_status,
+            sort,
+            icon,
+            keywords
+        FROM
+            product_category
+        WHERE
+            parent_no = #{category_no};
+    </select>
+
 </mapper>

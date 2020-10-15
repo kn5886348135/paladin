@@ -1,10 +1,10 @@
 package com.paladin.account.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.ProductCategory;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IProductCategoryService;
+import com.paladin.account.vo.ProductCategoryTreeVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -66,7 +66,7 @@ public class ProductCategoryController {
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "批量查询产品分类", notes = "批量查询产品分类", responseContainer = "List", response = RespOk.class)
 	public RespOk findProductCategoryList() {
-		List<ProductCategory> productCategoryList = productCategoryService.list(new QueryWrapper<>(productCategory));
-		return new RespOk(200, "查询成功", productCategoryList);
+		List<ProductCategoryTreeVO> productCategoryTreeVOList = productCategoryService.selectProductCategoryTree();
+		return new RespOk(200, "查询成功", productCategoryTreeVOList);
 	}
 }
