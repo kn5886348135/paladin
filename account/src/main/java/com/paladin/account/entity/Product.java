@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -23,15 +25,25 @@ public class Product extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "品牌id")
-	private Long brandId;
+	interface Insert{}
+	interface Modify{}
 
+	@NotBlank(groups = {Insert.class, Modify.class}, message = "品牌编号不能为空")
+	@Size(max = 20, message = "品牌编号长度最大为20个字符")
+	@ApiModelProperty(value = "品牌编号")
+	private Long brandNo;
+
+	@NotBlank(groups = {Insert.class, Modify.class}, message = "品牌名称不能为空")
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
-	@ApiModelProperty(value = "产品分类id")
-	private Long productCategoryId;
+	@NotBlank(groups = {Insert.class, Modify.class}, message = "品牌名称不能为空")
+	@Size(max = 20, message = "产品分类编号长度最大为20个字符")
+	@ApiModelProperty(value = "产品分类编号")
+	private Long productCategoryNo;
 
+	@NotBlank(groups = {Insert.class, Modify.class}, message = "品牌名称不能为空")
+	@Size(max = 20, message = "商品分类名称长度最大为20个字符")
 	@ApiModelProperty(value = "商品分类名称")
 	private String productCategoryName;
 

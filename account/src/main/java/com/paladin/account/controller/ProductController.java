@@ -46,27 +46,32 @@ public class ProductController {
 
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
 			MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteAccount(@RequestBody Product product) {
+	public RespOk deleteProduct(@RequestBody Product product) {
 		boolean result = productService.removeById(product.getId());
 		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
 	}
 
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyAccount(@RequestBody Product product) {
+	public RespOk modifyProduct(@RequestBody Product product) {
 		boolean result = productService.updateById(product);
 		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
 	}
 
-	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findAccount(@RequestBody Product product) {
+	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findProduct(@RequestBody Product product) {
 		Product result = productService.getById(product);
 		return new RespOk(200, "查询成功", result);
 	}
 
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询产品", notes = "批量查询产品", responseContainer = "List", response = RespOk.class)
-	public RespOk findAccountList(@RequestBody Product product) {
+	@GetMapping(value = "/detail", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk findProductDetail(@RequestBody Product product) {
+		Product result = productService.getById(product);
+		return new RespOk(200, "查询成功", result);
+	}
+
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询产品列表", notes = "批量查询产品", responseContainer = "List", response = RespOk.class)
+	public RespOk findProductList(@RequestBody Product product) {
 		List<Product> productList = productService.list(new QueryWrapper<>(product));
 		return new RespOk(200, "查询成功", productList);
 	}

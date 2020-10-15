@@ -20,6 +20,9 @@ public class Brand extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "品牌编号,")
+	private String brandNo;
+
 	@ApiModelProperty(value = "品牌名称")
 	private String brandName;
 
