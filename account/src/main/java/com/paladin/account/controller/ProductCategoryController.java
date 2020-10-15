@@ -46,27 +46,26 @@ public class ProductCategoryController {
 
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
 			MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteAccount(@RequestBody ProductCategory productCategory) {
+	public RespOk deleteProductCategory(@RequestBody ProductCategory productCategory) {
 		boolean result = productCategoryService.removeById(productCategory.getId());
 		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
 	}
 
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyAccount(@RequestBody ProductCategory productCategory) {
+	public RespOk modifyProductCategory(@RequestBody ProductCategory productCategory) {
 		boolean result = productCategoryService.updateById(productCategory);
 		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findAccount(@RequestBody ProductCategory productCategory) {
+	public RespOk findProductCategory(@RequestBody ProductCategory productCategory) {
 		ProductCategory result = productCategoryService.getById(productCategory);
 		return new RespOk(200, "查询成功", result);
 	}
 
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "批量查询产品分类", notes = "批量查询产品分类", responseContainer = "List", response = RespOk.class)
-	public RespOk findAccountList(@RequestBody ProductCategory productCategory) {
+	public RespOk findProductCategoryList() {
 		List<ProductCategory> productCategoryList = productCategoryService.list(new QueryWrapper<>(productCategory));
 		return new RespOk(200, "查询成功", productCategoryList);
 	}
