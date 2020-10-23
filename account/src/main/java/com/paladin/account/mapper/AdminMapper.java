@@ -2,6 +2,7 @@ package com.paladin.account.mapper;
 
 import com.paladin.account.entity.Admin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.lettuce.core.dynamic.annotation.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface AdminMapper extends BaseMapper<Admin> {
 
+	Admin selectAdminByUsernameAndPasswd(@Param("username") String username, @Param("passwd") String passwd);
 }

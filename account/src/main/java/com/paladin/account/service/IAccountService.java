@@ -15,5 +15,5 @@ public interface IAccountService extends IService<Account> {
 
 	public boolean register(Account account);
 
-	boolean login(String accountName, String password);
+	boolean login(String accountName, String passwd);
 }

@@ -61,8 +61,8 @@ public class AccountController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk login(@RequestParam String accountName, @RequestParam String password) {
-		boolean result = accountService.login(accountName, password);
+	public RespOk login(@RequestParam String accountName, @RequestParam String passwd) {
+		boolean result = accountService.login(accountName, passwd);
 		if (result) {
 			return new RespOk(200, "查询成功", result);
 		}else {

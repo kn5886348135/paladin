@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paladin.account.mapper.AdminMapper">
 
+    <select id="selectAdminByUsernameAndPasswd" resultType="com.paladin.account.entity.Admin">
+        SELECT
+            username,
+            passwd,
+            icon,
+            email,
+            nick_name,
+            note,
+            login_time,
+            state,
+            delete_status,
+            gmt_create,
+            gmt_modified
+        FROM
+            admin
+        WHERE
+            username = #{username}
+        AND
+            passwd = #{passwd}
+        AND
+            state = 1
+        AND
+            delete_status = 1
+    </select>
 </mapper>

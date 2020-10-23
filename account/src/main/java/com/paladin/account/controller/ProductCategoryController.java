@@ -44,6 +44,7 @@ public class ProductCategoryController {
 		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
 	}
 
+	@ApiOperation(value = "删除产品分类", notes = "删除产品分类", response = RespOk.class)
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
 			MediaType.APPLICATION_JSON_VALUE)
 	public RespOk deleteProductCategory(@RequestBody ProductCategory productCategory) {
@@ -51,12 +52,14 @@ public class ProductCategoryController {
 		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
 	}
 
+	@ApiOperation(value = "修改产品分类", notes = "修改产品分类", response = RespOk.class)
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public RespOk modifyProductCategory(@RequestBody ProductCategory productCategory) {
 		boolean result = productCategoryService.updateById(productCategory);
 		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
 	}
 
+	@ApiOperation(value = "查询产品分类详情", notes = "查询产品分类详情", response = RespOk.class)
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public RespOk findProductCategory(@RequestBody ProductCategory productCategory) {
 		ProductCategory result = productCategoryService.getById(productCategory);

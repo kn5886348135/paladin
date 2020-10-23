@@ -1,7 +1,7 @@
 package com.paladin.account.service;
 
-import com.paladin.account.entity.Admin;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.paladin.account.entity.Admin;
 
 /**
  * <p>
@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAdminService extends IService<Admin> {
 
+	boolean adminLogin(String username, String passwd);
 }

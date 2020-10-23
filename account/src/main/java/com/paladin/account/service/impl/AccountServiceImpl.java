@@ -30,11 +30,11 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
 	@Override
 	public boolean register(Account account) {
-		String password = account.getPassword();
+		String passwd = account.getPasswd();
 		// 密码加密
-		password = password + Constants.salt;
-		password = MD5Utils.md5Sign(password);
-		account.setPassword(password);
+		passwd = passwd + Constants.salt;
+		passwd = MD5Utils.md5Sign(passwd);
+		account.setPasswd(passwd);
 		// 用户名去重
 		Account accountQueryWrapper = new Account();
 		accountQueryWrapper.setAccountName(account.getAccountName());
@@ -48,15 +48,15 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 	}
 
 	@Override
-	public boolean login(String accountName, String password) {
+	public boolean login(String accountName, String passwd) {
 		Account account = new Account();
-		password = password + Constants.salt;
-		password = MD5Utils.md5Sign(password);
+		passwd = passwd + Constants.salt;
+		passwd = MD5Utils.md5Sign(passwd);
 		account.setAccountName(accountName);
-		account.setPassword(password);
+		account.setPasswd(passwd);
 		Map<String, Object> columnMap = new HashMap<>();
 		columnMap.put("account_name", accountName);
-		columnMap.put("password", password);
+		columnMap.put("passwd", passwd);
 		List<Account> accountlis = listByMap(columnMap);
 
 		return accountlis.size() == 1 ? true : false;

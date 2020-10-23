@@ -35,7 +35,7 @@ public class Account extends BaseEntity {
 
 	@Size(min = 6, max = 16, message = "密码只能是6-16个字符")
 	@ApiModelProperty(value = "密码")
-	private String password;
+	private String passwd;
 
 	@ApiModelProperty(value = "昵称")
 	private String nickname;
@@ -61,7 +61,7 @@ public class Account extends BaseEntity {
 	private Integer integral;
 
 	@ApiModelProperty(value = "帐号启用状态:0->禁用；1->启用")
-	private Boolean status;
+	private Boolean state;
 
 	@ApiModelProperty(value = "性别：0->未知；1->男；2->女")
 	private Boolean gender;

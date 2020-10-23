@@ -1,12 +1,11 @@
 package com.paladin.account.entity;
 
-import java.time.LocalDateTime;
-
-import com.paladin.account.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,7 +24,7 @@ public class Admin extends BaseEntity {
 
 	private String username;
 
-	private String password;
+	private String passwd;
 
 	@ApiModelProperty(value = "头像")
 	private String icon;
@@ -46,6 +45,6 @@ public class Admin extends BaseEntity {
 	private LocalDateTime loginTime;
 
 	@ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
-	private Integer status;
+	private Integer state;
 
 }
