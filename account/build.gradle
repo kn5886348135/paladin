@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'org.springframework.boot' version '2.4.3'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
@@ -45,6 +45,7 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    implementation group: 'com.redislabs', name: 'jrebloom', version: '2.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 //	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -92,6 +93,12 @@ dependencies {
     implementation 'org.apache.poi:poi-ooxml:4.1.2'
     implementation 'net.coobird:thumbnailator:0.4.12'
 
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor('org.mapstruct:mapstruct-processor:1.4.2.Final')
+
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
+    implementation group: 'com.google.guava', name: 'guava', version: '30.1.1-jre'
+
     annotationProcessor('org.projectlombok:lombok:1.18.12')
     compileOnly('org.projectlombok:lombok:1.18.12')
     testAnnotationProcessor('org.projectlombok:lombok:1.18.12')
@@ -113,7 +120,7 @@ dependencyManagement {
 
 test {
 //	outputs.dir snippetsDir
-//	useJUnitPlatform()
+	useJUnitPlatform()
 }
 
 asciidoctor {

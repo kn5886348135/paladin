@@ -1,34 +1,38 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.0.221:3306/paladin?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
-    username: root
-    password: 123456
+#    url: jdbc:mysql://192.168.31.221:3306/paladin?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
+#    username: root
+#    password: 123456
     #    driver-class-name: com.mysql.cj.jdbc.Driver
     #连接池配置
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.31.221:3306/paladin?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&allowMultiQueries=true
+    username: root
+    password: 123456
     hikari:
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://192.168.0.221:3306/paladin?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false
-      username: root
-      password: 123456
+      minimum-idle: 5
+      maximum-pool-size: 10
       auto-commit: true
-      connection-timeout: 30000
       idle-timeout: 600000
+      pool-name: paladin-pool
       max-lifetime: 86430000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
       #      connection-test-query:
       #      minimum-idle:
-      maximum-pool-size: 10
       #      metric-registry:
       #      health-check-registry:
-      pool-name: paladin-pool
   mvc:
     throw-exception-if-no-handler-found: true
+    log-request-details: true
   resources:
     add-mappings: false
   redis:
-    host: 192.168.0.221
+    host: 192.168.31.168
     port: 6379
     timeout: 0
-    password:
+    password: 111111
   application:
     name: account
 #  cloud:
@@ -73,4 +77,4 @@ mybatis-plus:
 #  client:
 #    fetch-registry: false
 server:
-  port: 8081
+  port: 8090

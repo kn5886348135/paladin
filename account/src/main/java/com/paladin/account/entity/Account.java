@@ -1,5 +1,6 @@
 package com.paladin.account.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -84,4 +85,7 @@ public class Account extends BaseEntity {
 	@ApiModelProperty(value = "备注")
 	private String description;
 
+	// 验证码
+	@TableField(exist = false)
+	private String code;
 }
