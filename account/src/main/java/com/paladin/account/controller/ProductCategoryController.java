@@ -5,15 +5,23 @@ import com.paladin.account.entity.ProductCategory;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IProductCategoryService;
 import com.paladin.account.vo.ProductCategoryTreeVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,20 +32,24 @@ import java.util.List;
  * @author paladin
  * @since 2020-10-07
  */
+@Api("分类操作")
 @RestController
 @RequestMapping("/product/category")
 public class ProductCategoryController {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryController.class);
 
-	@Resource
 	private IProductCategoryService productCategoryService;
 
-	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ProductCategoryController(IProductCategoryService productCategoryService) {
+		this.productCategoryService = productCategoryService;
+	}
+
+	@PostMapping(value = "/新增产品分类", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
 			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
 			@ApiResponse(code = 500, message = "服务器内部错误")})
-//    @ApiImplicitParams({@ApiImplicitParam})
+	@ApiImplicitParams({@ApiImplicitParam(name = "")})
 	@ApiOperation(value = "添加产品分类", notes = "添加产品分类", response = RespOk.class)
 	public RespOk addProductCategory(@RequestBody ProductCategory productCategory) {
 		boolean result = productCategoryService.save(productCategory);
@@ -66,10 +78,10 @@ public class ProductCategoryController {
 		return new RespOk(200, "查询成功", result);
 	}
 
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询产品分类", notes = "批量查询产品分类", responseContainer = "List", response = RespOk.class)
-	public RespOk findProductCategoryList() {
-		List<ProductCategoryTreeVO> productCategoryTreeVOList = productCategoryService.selectProductCategoryTree();
-		return new RespOk(200, "查询成功", productCategoryTreeVOList);
+	@GetMapping(value = "/tree", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "查询产品分类树", notes = "查询产品分类树", responseContainer = "List", response = RespOk.class)
+	public RespOk findProductCategoryTree() {
+		List<ProductCategoryTreeVO> productCategoryVOList = productCategoryService.selectProductCategoryTree();
+		return new RespOk(200, "查询成功", productCategoryVOList);
 	}
 }

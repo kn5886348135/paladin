@@ -3,6 +3,7 @@ package com.paladin.account.mapper;
 import com.paladin.account.entity.ProductCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.paladin.account.vo.ProductCategoryTreeVO;
+import com.paladin.account.vo.ProductCategoryVO;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ import java.util.List;
  */
 public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
 
-	public List<ProductCategoryTreeVO> selectProductCategoryTree();
+	List<ProductCategoryTreeVO> selectProductCategoryTree();
+
+	List<ProductCategoryVO> selectProductCategoryList();
 
 }

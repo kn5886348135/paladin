@@ -2,45 +2,136 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paladin.account.mapper.ProductCategoryMapper">
 
-    <resultMap id="productCategoryTree" type="com.paladin.account.vo.ProductCategoryTreeVO" >
-        <id column="category_no" property="categoryNo"/>
-        <collection property="categoryVOList" ofType="com.paladin.account.vo.ProductCategoryTreeVO" column="category_no" select="selectProductCategoryByParentNo"/>
+    <resultMap id="groupedProductCategory" type="com.paladin.account.vo.ProductCategoryTreeVO" >
+        <id property="channelNum" column="channel_num"></id>
+        <collection property="productCategoryList" ofType="com.paladin.account.vo.ProductCategoryVO" javaType="ArrayList" resultMap="categoryList">
+            <result column="productCategoryList"/>
+        </collection>
+        <collection property="channelList" ofType="com.paladin.account.vo.ProductCategoryVO" select="selectChannelList" column="channel_num"/>
+        <collection property="titleList" ofType="com.paladin.account.vo.ProductCategoryTitleVO" select="selectTitleList" column="channel_num"/>
+        <collection property="brandList" ofType="com.paladin.account.vo.ProductCategoryVO" select="selectBrandList" column="channel_num"/>
+        <collection property="promotionList" ofType="com.paladin.account.vo.ProductCategoryVO" select="selectPromotionList" column="channel_num"/>
     </resultMap>
 
-    <select id="selectProductCategoryTree" resultType="com.paladin.account.vo.ProductCategoryTreeVO" resultMap="productCategoryTree">
+    <resultMap id="categoryList" type="com.paladin.account.vo.ProductCategoryVO">
+        <id property="id" column="id" jdbcType="TINYINT"/>
+        <result property="parentNo" column="parent_no" jdbcType="INTEGER"/>
+        <result property="categoryNo" column="category_no" jdbcType="INTEGER"/>
+        <result property="categoryName" column="category_name" jdbcType="VARCHAR"/>
+        <result property="channelNum" column="channel_num" jdbcType="TINYINT"/>
+        <result property="linkUrl" column="link_url" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <select id="selectProductCategoryTree" resultType="com.paladin.account.vo.ProductCategoryTreeVO" resultMap="groupedProductCategory">
         SELECT
+            id,
             parent_no,
             category_no,
             category_name,
-            tier,
-            nav_status,
-            show_status,
-            sort,
-            icon,
-            keywords
+            channel_num,
+            link_url,
+            sort
         FROM
             product_category
         WHERE
-            parent_no = 0
-        AND
-            tier = 1
+            category_type = 0
     </select>
 
-    <select id="selectProductCategoryByParentNo" resultMap="productCategoryTree" >
+    <select id="selectChannelList" resultType="com.paladin.account.vo.ProductCategoryVO">
         SELECT
+            id,
             parent_no,
             category_no,
             category_name,
-            tier,
-            nav_status,
-            show_status,
-            sort,
-            icon,
-            keywords
+            channel_num,
+            link_url,
+            sort
         FROM
             product_category
         WHERE
-            parent_no = #{category_no};
+            category_type = 1
+        AND
+            channel_num = #{channelNum}
+    </select>
+
+    <select id="selectTitleList" resultType="com.paladin.account.vo.ProductCategoryTitleVO" resultMap="titleMap">
+        SELECT
+            id,
+            parent_no,
+            category_no,
+            category_name,
+            channel_num,
+            link_url,
+            sort
+        FROM
+            product_category
+        WHERE
+            category_type = 2
+        AND
+            channel_num = #{channelNum}
+    </select>
+
+    <resultMap id="titleMap" type="com.paladin.account.vo.ProductCategoryTitleVO" >
+        <id column="id" ></id>
+        <result column="parent_no" property="parentNo"></result>
+        <result column="category_no" property="categoryNo"></result>
+        <result column="category_name" property="categoryName"></result>
+        <result column="link_url" property="linkUrl"></result>
+        <result column="sort" property="sort"></result>
+        <result column="channel_num" property="channelNum"></result>
+        <collection property="contentList" ofType="com.paladin.account.vo.ProductCategoryTitleVO" select="selectContentList" column="category_no"/>
+    </resultMap>
+
+    <select id="selectContentList" resultType="com.paladin.account.vo.ProductCategoryVO">
+        SELECT
+            id,
+            parent_no,
+            category_no,
+            category_name,
+            channel_num,
+            link_url,
+            sort
+        FROM
+            product_category
+        WHERE
+            category_type = 3
+        AND
+            parent_no = #{categoryNo}
+    </select>
+
+    <select id="selectBrandList" resultType="com.paladin.account.vo.ProductCategoryVO">
+        SELECT
+            id,
+            parent_no,
+            category_no,
+            category_name,
+            channel_num,
+            link_url,
+            sort
+        FROM
+            product_category
+        WHERE
+            category_type = 4
+        AND
+            channel_num = #{channelNum}
+    </select>
+
+    <select id="selectPromotionList" resultType="com.paladin.account.vo.ProductCategoryVO">
+        SELECT
+            id,
+            parent_no,
+            category_no,
+            category_name,
+            channel_num,
+            link_url,
+            sort
+        FROM
+            product_category
+        WHERE
+            category_type = 5
+        AND
+            channel_num = #{channelNum}
     </select>
 
 </mapper>

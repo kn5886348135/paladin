@@ -18,7 +18,8 @@ public interface IProductCategoryService extends IService<ProductCategory> {
 
 	/**
 	 * 查询产品分类树
+	 *
 	 * @return 产品分类树形结构
 	 */
-	public List<ProductCategoryTreeVO> selectProductCategoryTree();
+	List<ProductCategoryTreeVO> selectProductCategoryTree();
 }
