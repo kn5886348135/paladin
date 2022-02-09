@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Description: 产品分类前端展示实体类
@@ -15,9 +16,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode
 @ApiModel(value = "ProductCategory对象", description = "产品分类")
-public class ProductCategoryVO implements Serializable {
+public class ProductCategoryTitleVO implements Serializable {
 
-	private static final long serialVersionUID = -7280002012319611014L;
+	private static final long serialVersionUID = 7241412069785801710L;
 
 	@ApiModelProperty(value = "父分类的编号：0表示一级分类")
 	private Long id;
@@ -39,4 +40,6 @@ public class ProductCategoryVO implements Serializable {
 
 	@ApiModelProperty(value = "排序")
 	private Integer sort;
+
+	private List<ProductCategoryVO> contentList;
 }

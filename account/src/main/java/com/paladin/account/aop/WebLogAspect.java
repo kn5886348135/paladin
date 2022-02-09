@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class WebLogAspect {
 
-	private final static Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
 	public final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -45,19 +45,19 @@ public class WebLogAspect {
 		HttpServletRequest request = attributes.getRequest();
 
 		// 打印请求相关参数
-		logger.info("========================================== Start ==========================================");
+		LOGGER.info("========================================== Start ==========================================");
 		// 打印请求 url
-		logger.info("URL            : {}", request.getRequestURL().toString());
+		LOGGER.info("URL            : {}", request.getRequestURL().toString());
 		// 打印 Http method
-		logger.info("HTTP Method    : {}", request.getMethod());
+		LOGGER.info("HTTP Method    : {}", request.getMethod());
 		// 打印调用 controller 的全路径以及执行方法
-		logger.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),
+		LOGGER.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(),
 				joinPoint.getSignature().getName());
 		// 打印请求的 IP
-		logger.info("IP             : {}", request.getRemoteAddr());
+		LOGGER.info("IP             : {}", request.getRemoteAddr());
 		// 打印请求入参
 
-		logger.info("Request Args   : {}", objectMapper.writeValueAsString(joinPoint.getArgs()));
+		LOGGER.info("Request Args   : {}", objectMapper.writeValueAsString(joinPoint.getArgs()));
 	}
 
 	/**
@@ -67,9 +67,9 @@ public class WebLogAspect {
 	 */
 	@After("webLog()")
 	public void doAfter(Object result) throws Throwable {
-		logger.info("=========================================== End ===========================================");
+		LOGGER.info("=========================================== End ===========================================");
 		// 每个请求之间空一行
-		logger.info("Response result   : {}", objectMapper.writeValueAsString(result));
+		LOGGER.info("Response result   : {}", objectMapper.writeValueAsString(result));
 	}
 
 	/**
@@ -84,9 +84,9 @@ public class WebLogAspect {
 		long startTime = System.currentTimeMillis();
 		Object result = proceedingJoinPoint.proceed();
 		// 打印出参
-		logger.info("Response Args  : {}", objectMapper.writeValueAsString(result));
+		LOGGER.info("Response Args  : {}", objectMapper.writeValueAsString(result));
 		// 执行耗时
-		logger.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
+		LOGGER.info("Time-Consuming : {} ms", System.currentTimeMillis() - startTime);
 		return result;
 	}
 

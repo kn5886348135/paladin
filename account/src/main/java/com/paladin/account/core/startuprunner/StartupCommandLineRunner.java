@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(value = -1)
 public class StartupCommandLineRunner implements CommandLineRunner {
-	private static final Logger logger = LoggerFactory.getLogger(StartupCommandLineRunner.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartupCommandLineRunner.class);
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("服务器启动成功！<<<<使用CommandLineRunner接口");
+		LOGGER.info("服务器启动成功！<<<<使用CommandLineRunner接口");
 	}
 
 }

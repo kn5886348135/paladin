@@ -22,7 +22,8 @@ import java.text.MessageFormat;
  */
 public class RespResult implements Serializable {
 	private static final long serialVersionUID = -2757635913593029410L;
-	public static final Logger LOGGER = LoggerFactory.getLogger(RespResult.class);
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(RespResult.class);
 
 	/**
 	 * 获取当前request scope的response
@@ -32,8 +33,6 @@ public class RespResult implements Serializable {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 	public ObjectNode OBJECT_NODE = objectMapper.createObjectNode();
-
-	private Logger logger = LoggerFactory.getLogger(RespResult.class);
 
 	/**
 	 * 请求正常完成，返回结果，http status 200
@@ -125,7 +124,7 @@ public class RespResult implements Serializable {
 		try {
 			dataStr = objectMapper.writeValueAsString(OBJECT_NODE.putPOJO("data", data));
 		} catch (JsonProcessingException e) {
-			logger.info(MessageFormat.format("buildResponse response write JsonProcessingException {0} {1} {2}",
+			LOGGER.info(MessageFormat.format("buildResponse response write JsonProcessingException {0} {1} {2}",
 					code + "", message, OBJECT_NODE.putPOJO("data", data).toPrettyString()));
 			// 这里应该抛出什么样的异常？Exception？
 			throw new RuntimeException(e);
@@ -135,7 +134,7 @@ public class RespResult implements Serializable {
 			RESPONSE.getWriter().write(dataStr);
 			RESPONSE.getWriter().flush();
 		} catch (IOException ioException) {
-			logger.info(MessageFormat.format("buildResponse response write IOException {0} {1} {2}",
+			LOGGER.info(MessageFormat.format("buildResponse response write IOException {0} {1} {2}",
 					code + "", message, OBJECT_NODE.putPOJO("data", data).toPrettyString()));
 			throw new RuntimeException(ioException);
 		}

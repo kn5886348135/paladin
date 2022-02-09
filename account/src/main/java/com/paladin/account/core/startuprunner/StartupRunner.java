@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(value = 1)
 public class StartupRunner implements ApplicationRunner {
-	private static final Logger logger = LoggerFactory.getLogger(StartupRunner.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartupRunner.class);
 
 	@Override
 	public void run(ApplicationArguments var1) throws Exception {
-		logger.info("服务器启动成功！<<<<使用ApplicationRunner接口");
+		LOGGER.info("服务器启动成功！<<<<使用ApplicationRunner接口");
 	}
 
 }

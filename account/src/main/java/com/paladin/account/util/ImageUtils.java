@@ -19,7 +19,7 @@ import java.io.OutputStream;
  * @date: created in 2020/8/28 20:59
  */
 public class ImageUtils {
-	public static Logger logger = LoggerFactory.getLogger(ImageUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImageUtils.class);
 
 	public static void main(String[] args) throws IOException {
 		//使用给定的图片生成指定大小的图片
@@ -61,7 +61,7 @@ public class ImageUtils {
 			Thumbnails.of("C:\\Users\\Administrator\\Desktop\\微信图片_20180129100019.jpg").size(80, 80).toFile("C:\\Users" +
 					"\\Administrator\\Desktop\\newmeinv.jpg");
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -82,7 +82,7 @@ public class ImageUtils {
 							outputQuality(0.8).
 					toFile("C:\\Users\\Administrator\\Desktop\\2016010208_new.jpg");
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -98,7 +98,7 @@ public class ImageUtils {
 					// 写入输出流
 							toOutputStream(outputStream);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -116,7 +116,7 @@ public class ImageUtils {
 							outputQuality(0.8).
 					toFile("data/2016010208_scale.jpg");
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -131,7 +131,7 @@ public class ImageUtils {
 					//指定的目录一定要存在,否则报错
 							toFiles(new File("data/new/"), Rename.NO_CHANGE);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 
@@ -145,7 +145,7 @@ public class ImageUtils {
 					scale(0.8).
 					toFiles(new File("data/new/"), Rename.SUFFIX_HYPHEN_THUMBNAIL);
 		} catch (IOException e) {
-			logger.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 

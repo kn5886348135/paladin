@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AspectLog {
 
-	private static final Logger logger = LoggerFactory.getLogger(AspectLog.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AspectLog.class);
 
 //    @Resource
 //    private SystemLogService systemLogService;
