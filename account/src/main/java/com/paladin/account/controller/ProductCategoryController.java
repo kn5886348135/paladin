@@ -37,7 +37,7 @@ import java.util.List;
 @RequestMapping("/product/category")
 public class ProductCategoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryController.class);
 
 	private IProductCategoryService productCategoryService;
 

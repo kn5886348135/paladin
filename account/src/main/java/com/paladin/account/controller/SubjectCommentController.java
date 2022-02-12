@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/subject/comment")
 public class SubjectCommentController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(SubjectCommentController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubjectCommentController.class);
 
 	@Resource
 	private ISubjectCommentService subjectCommentService;

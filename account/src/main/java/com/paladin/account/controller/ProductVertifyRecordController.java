@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/product/vertify/record")
 public class ProductVertifyRecordController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductVertifyRecordController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductVertifyRecordController.class);
 
 	@Resource
 	private IProductVertifyRecordService productVertifyRecordService;

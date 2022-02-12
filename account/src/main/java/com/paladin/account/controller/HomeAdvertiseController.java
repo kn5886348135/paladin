@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/home/advertise")
 public class HomeAdvertiseController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(HomeAdvertiseController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeAdvertiseController.class);
 
 	@Resource
 	private IHomeAdvertiseService homeAdvertiseService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/permission")
 public class PermissionController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PermissionController.class);
 
 	@Resource
 	private IPermissionService permissionService;

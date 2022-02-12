@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/home/brand")
 public class HomeBrandController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(HomeBrandController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeBrandController.class);
 
 	@Resource
 	private IHomeBrandService homeBrandService;

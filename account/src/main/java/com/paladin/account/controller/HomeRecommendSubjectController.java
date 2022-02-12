@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/home/recommend/subject")
 public class HomeRecommendSubjectController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(HomeRecommendSubjectController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeRecommendSubjectController.class);
 
 	@Resource
 	private IHomeRecommendSubjectService homeRecommendSubjectService;

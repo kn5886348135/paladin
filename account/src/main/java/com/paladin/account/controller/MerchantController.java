@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/merchant")
 public class MerchantController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MerchantController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MerchantController.class);
 
 	@Resource
 	private IMerchantService merchantService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/subject")
 public class SubjectController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(SubjectController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubjectController.class);
 
 	@Resource
 	private ISubjectService subjectService;

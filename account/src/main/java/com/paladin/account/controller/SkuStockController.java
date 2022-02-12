@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/sku/stock")
 public class SkuStockController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(SkuStockController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SkuStockController.class);
 
 	@Resource
 	private ISkuStockService skuStockService;

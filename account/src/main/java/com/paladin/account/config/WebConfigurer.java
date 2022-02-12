@@ -36,7 +36,7 @@ import java.util.List;
 @EnableWebMvc
 public class WebConfigurer implements WebMvcConfigurer {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
 
 	// 自定义消息转换器
 	@Override

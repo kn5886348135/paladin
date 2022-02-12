@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/flash/promotion/session")
 public class FlashPromotionSessionController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(FlashPromotionSessionController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FlashPromotionSessionController.class);
 
 	@Resource
 	private IFlashPromotionSessionService flashPromotionSessionService;

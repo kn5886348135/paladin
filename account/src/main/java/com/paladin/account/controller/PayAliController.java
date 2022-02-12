@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/pay/ali")
 public class PayAliController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(PayAliController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PayAliController.class);
 
 	@Resource
 	private IPayAliService payAliService;

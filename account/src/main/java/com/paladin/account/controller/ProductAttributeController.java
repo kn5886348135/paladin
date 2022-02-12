@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/product/attribute")
 public class ProductAttributeController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductAttributeController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductAttributeController.class);
 
 	@Resource
 	private IProductAttributeService productAttributeService;

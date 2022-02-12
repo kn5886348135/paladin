@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/sys/perm")
 public class SysPermController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(SysPermController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SysPermController.class);
 
 	@Resource
 	private ISysPermService sysPermService;

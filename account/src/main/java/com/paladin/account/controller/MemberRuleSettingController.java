@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/member/rule/setting")
 public class MemberRuleSettingController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberRuleSettingController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberRuleSettingController.class);
 
 	@Resource
 	private IMemberRuleSettingService memberRuleSettingService;

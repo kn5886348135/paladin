@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/coupon/product/category/relation")
 public class CouponProductCategoryRelationController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(CouponProductCategoryRelationController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CouponProductCategoryRelationController.class);
 
 	@Resource
 	private ICouponProductCategoryRelationService couponProductCategoryRelationService;

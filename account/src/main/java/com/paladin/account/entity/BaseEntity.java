@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -7212782796791882630L;
-	private long id;
+	private Long id;
 	private short deleteStatus;
 	@ApiModelProperty(value = "创建时间")
 	private LocalDateTime gmtCreate;

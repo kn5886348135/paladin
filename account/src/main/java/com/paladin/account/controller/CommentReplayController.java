@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/comment/replay")
 public class CommentReplayController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(CommentReplayController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CommentReplayController.class);
 
 	@Resource
 	private ICommentReplayService commentReplayService;

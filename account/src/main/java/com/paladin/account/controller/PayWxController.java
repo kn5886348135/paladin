@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/pay/wx")
 public class PayWxController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(PayWxController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PayWxController.class);
 
 	@Resource
 	private IPayWxService payWxService;

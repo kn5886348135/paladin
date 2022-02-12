@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/member")
 public class MemberController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberController.class);
 
 	@Resource
 	private IMemberService memberService;

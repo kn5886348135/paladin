@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/account/subject-category")
 public class SubjectCategoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(SubjectCategoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SubjectCategoryController.class);
 
 	@Resource
 	private ISubjectCategoryService subjectCategoryService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/member/tag/relation")
 public class MemberTagRelationController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberTagRelationController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberTagRelationController.class);
 
 	@Resource
 	private IMemberTagRelationService memberTagRelationService;

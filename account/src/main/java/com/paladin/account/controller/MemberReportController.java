@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/account/member-report")
 public class MemberReportController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberReportController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberReportController.class);
 
 	@Resource
 	private IMemberReportService memberReportService;

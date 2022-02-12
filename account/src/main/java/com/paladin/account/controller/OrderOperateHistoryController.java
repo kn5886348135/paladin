@@ -31,7 +31,7 @@ import java.util.List;
 @RequestMapping("/order-operate-history")
 public class OrderOperateHistoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(OrderOperateHistoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderOperateHistoryController.class);
 
 	@Resource
 	private IOrderOperateHistoryService orderOperateHistoryService;

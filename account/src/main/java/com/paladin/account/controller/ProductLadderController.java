@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/product/ladder")
 public class ProductLadderController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductLadderController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductLadderController.class);
 
 	@Resource
 	private IProductLadderService productLadderService;

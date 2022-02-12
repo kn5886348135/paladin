@@ -33,7 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sys/role")
 public class SysRoleController {
-	public static final Logger LOGGER = LoggerFactory.getLogger(SysRoleController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SysRoleController.class);
 
 	@Resource
 	private ISysRoleService sysRoleService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/order/item")
 public class OrderItemController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(OrderItemController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderItemController.class);
 
 	@Resource
 	private IOrderItemService orderItemService;

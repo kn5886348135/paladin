@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/cartitem")
 public class CartItemController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(CartItemController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CartItemController.class);
 
 	@Resource
 	private ICartItemService cartItemService;

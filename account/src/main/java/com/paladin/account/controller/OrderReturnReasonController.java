@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/order/return/reason")
 public class OrderReturnReasonController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(OrderReturnReasonController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderReturnReasonController.class);
 
 	@Resource
 	private IOrderReturnReasonService orderReturnReasonService;

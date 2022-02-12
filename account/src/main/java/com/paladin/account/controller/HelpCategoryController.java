@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/help/category")
 public class HelpCategoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(HelpCategoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HelpCategoryController.class);
 
 	@Resource
 	private IHelpCategoryService helpCategoryService;

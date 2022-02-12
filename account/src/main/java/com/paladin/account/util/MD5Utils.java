@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Utils {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MD5Utils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MD5Utils.class);
 
 	public static String md5Sign(String plainText) {
 		byte[] secretBytes = null;

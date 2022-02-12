@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/admin/role/relation")
 public class AdminRoleRelationController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(AdminRoleRelationController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminRoleRelationController.class);
 
 	@Resource
 	private IAdminRoleRelationService adminRoleRelationService;

@@ -41,7 +41,7 @@ import java.util.List;
 @Validated
 public class AdminController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
 	private IAdminService adminService;
 

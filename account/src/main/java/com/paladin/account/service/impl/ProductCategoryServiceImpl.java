@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMapper, ProductCategory> implements IProductCategoryService {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductCategoryServiceImpl.class);
 
 	@Autowired
 	private ProductCategoryMapper productCategoryMapper;

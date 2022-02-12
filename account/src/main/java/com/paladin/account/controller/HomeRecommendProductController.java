@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/home/recommend/product")
 public class HomeRecommendProductController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(HomeRecommendProductController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(HomeRecommendProductController.class);
 
 	@Resource
 	private IHomeRecommendProductService homeRecommendProductService;

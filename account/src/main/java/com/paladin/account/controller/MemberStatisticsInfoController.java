@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/member/statistics/info")
 public class MemberStatisticsInfoController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberStatisticsInfoController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberStatisticsInfoController.class);
 
 	@Resource
 	private IMemberStatisticsInfoService memberStatisticsInfoService;

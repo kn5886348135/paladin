@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/member/receive/address")
 public class MemberReceiveAddressController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(MemberReceiveAddressController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MemberReceiveAddressController.class);
 
 	@Resource
 	private IMemberReceiveAddressService memberReceiveAddressService;

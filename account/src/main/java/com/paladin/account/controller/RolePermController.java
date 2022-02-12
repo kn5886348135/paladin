@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/role/perm")
 public class RolePermController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(RolePermController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(RolePermController.class);
 
 	@Resource
 	private IRolePermService rolePermService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/wx")
 public class WxController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(WxController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WxController.class);
 
 	@Resource
 	private IWxService wxService;

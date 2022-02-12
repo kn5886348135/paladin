@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/level")
 public class LevelController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(LevelController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(LevelController.class);
 
 	@Resource
 	private ILevelService levelService;

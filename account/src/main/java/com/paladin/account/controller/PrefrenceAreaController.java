@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/prefrence/area")
 public class PrefrenceAreaController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(PrefrenceAreaController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(PrefrenceAreaController.class);
 
 	@Resource
 	private IPrefrenceAreaService prefrenceAreaService;

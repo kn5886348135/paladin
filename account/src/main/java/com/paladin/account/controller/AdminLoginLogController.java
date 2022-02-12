@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/admin/login/log")
 public class AdminLoginLogController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(AdminLoginLogController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminLoginLogController.class);
 
 	@Resource
 	private IAdminLoginLogService adminLoginLogService;

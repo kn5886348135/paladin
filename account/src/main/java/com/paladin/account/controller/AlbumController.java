@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping("/album")
 public class AlbumController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(AlbumController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AlbumController.class);
 
 	@Resource
 	private IAlbumService albumService;

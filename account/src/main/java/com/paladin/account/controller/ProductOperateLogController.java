@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/product/operate/log")
 public class ProductOperateLogController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(ProductOperateLogController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductOperateLogController.class);
 
 	@Resource
 	private IProductOperateLogService productOperateLogService;

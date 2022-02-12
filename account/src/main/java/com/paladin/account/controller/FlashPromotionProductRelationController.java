@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/account/flash-promotion-product-relation")
 public class FlashPromotionProductRelationController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(FlashPromotionProductRelationController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(FlashPromotionProductRelationController.class);
 
 	@Resource
 	private IFlashPromotionProductRelationService flashPromotionProductRelationService;

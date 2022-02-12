@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/user/role")
 public class UserRoleController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(UserRoleController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserRoleController.class);
 
 	@Resource
 	private IUserRoleService userRoleService;

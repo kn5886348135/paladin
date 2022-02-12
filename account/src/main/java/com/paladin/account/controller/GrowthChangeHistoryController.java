@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/growth/change/history")
 public class GrowthChangeHistoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(GrowthChangeHistoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GrowthChangeHistoryController.class);
 
 	@Resource
 	private IGrowthChangeHistoryService growthChangeHistoryService;

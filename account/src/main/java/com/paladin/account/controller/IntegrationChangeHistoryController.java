@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/integration/change/history")
 public class IntegrationChangeHistoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(IntegrationChangeHistoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IntegrationChangeHistoryController.class);
 
 	@Resource
 	private IIntegrationChangeHistoryService integrationChangeHistoryService;

@@ -34,7 +34,7 @@ import java.util.List;
 @RequestMapping("/coupon/history")
 public class CouponHistoryController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(CouponHistoryController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CouponHistoryController.class);
 
 	@Resource
 	private ICouponHistoryService couponHistoryService;
