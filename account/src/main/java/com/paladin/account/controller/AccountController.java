@@ -5,12 +5,24 @@ import com.paladin.account.entity.Account;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.resp.RespResult;
 import com.paladin.account.service.IAccountService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -28,7 +40,7 @@ import java.util.List;
 @Validated
 public class AccountController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
 
 	private IAccountService accountService;
 
@@ -60,14 +72,16 @@ public class AccountController {
 		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
 	}
 
-	@GetMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk login(@RequestParam String accountName, @RequestParam String passwd) {
+	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	public RespOk login(@RequestBody Account account) {
+		String accountName = account.getAccountName();
+		String passwd = account.getPasswd();
 		boolean result = accountService.login(accountName, passwd);
 		if (result) {
-			return new RespOk(200, "查询成功", result);
+			return new RespOk(200, "登录成功", result);
 		}else {
 			RespResult res = new RespResult();
-			res.buildUnAuthorized(401, "用户名或者密码不存在", "");
+			res.setMessage("用户名或者密码不存在");
 			return null;
 		}
 	}
@@ -77,9 +91,9 @@ public class AccountController {
 		boolean result = accountService.login(accountName, passwd);
 		if (result) {
 			return new RespOk(200, "查询成功", result);
-		}else {
+		} else {
 			RespResult res = new RespResult();
-			res.buildUnAuthorized(401, "用户名或者密码不存在", "");
+			res.setMessage("用户名或者密码不存在");
 			return null;
 		}
 	}

@@ -1,21 +1,29 @@
 package com.paladin.account.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Admin;
 import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IAdminService;
 import com.paladin.account.util.MD5Utils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -30,18 +38,22 @@ import java.util.List;
 @Api(value = "管理员账户接口", tags = "管理员账户接口")
 @RestController
 @RequestMapping("/admin")
+@Validated
 public class AdminController {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
-	@Resource
 	private IAdminService adminService;
+
+	public AdminController(IAdminService adminService) {
+		this.adminService = adminService;
+	}
 
 	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
 			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
 			@ApiResponse(code = 500, message = "服务器内部错误")})
-//    @ApiImplicitParams({@ApiImplicitParam})
+    @ApiImplicitParams({@ApiImplicitParam})
 	@ApiOperation(value = "添加管理员", notes = "添加管理员", response = RespOk.class)
 	public RespOk registerAdmin(@RequestBody Admin admin) {
 		String passwd = admin.getPasswd();
@@ -52,7 +64,7 @@ public class AdminController {
 		return result ? new RespOk(200, "注册成功") : new RespOk(200, "注册失败");
 	}
 
-	public RespOk adminLogin(@RequestParam("username") String username,@RequestParam("passwd") String passwd) {
+	public RespOk adminLogin(@RequestParam("username") String username, @RequestParam("passwd") String passwd) {
 
 		passwd = MD5Utils.md5Sign(passwd);
 
