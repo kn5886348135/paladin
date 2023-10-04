@@ -1,6 +1,5 @@
 package com.paladin.account.controller;
 
-
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

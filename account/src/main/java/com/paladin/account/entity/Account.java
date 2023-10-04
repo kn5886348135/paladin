@@ -1,13 +1,17 @@
 package com.paladin.account.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.paladin.account.config.AES;
+import com.paladin.account.config.AESEncryptHandler;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -22,11 +26,12 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "Account对象", description = "会员表")
-public class Account extends BaseEntity {
+public class Account extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "账户ID，保证全局唯一")
+	@NotBlank(message = "accountId不能为空")
 	private String accountId;
 
 	@Size(min = 6, max = 16, message = "用户名只能是6-16个字符")
@@ -34,6 +39,7 @@ public class Account extends BaseEntity {
 	@ApiModelProperty(value = "账户名称")
 	private String accountName;
 
+	@NotBlank(message = "密码不能为空")
 	@Size(min = 6, max = 16, message = "密码只能是6-16个字符")
 	@ApiModelProperty(value = "密码")
 	private String passwd;
@@ -83,9 +89,14 @@ public class Account extends BaseEntity {
 	private Boolean sourceType;
 
 	@ApiModelProperty(value = "备注")
+	@TableField(typeHandler = AESEncryptHandler.class)
 	private String description;
 
 	// 验证码
 	@TableField(exist = false)
 	private String code;
+
+	public String getDescription() {
+		return AES.decrypt(description);
+	}
 }

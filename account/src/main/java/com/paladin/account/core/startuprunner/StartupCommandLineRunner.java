@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(value = -1)
 public class StartupCommandLineRunner implements CommandLineRunner {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(StartupCommandLineRunner.class);
 
 	@Override

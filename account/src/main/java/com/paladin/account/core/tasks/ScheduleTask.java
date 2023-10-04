@@ -12,6 +12,7 @@ import java.util.Date;
  */
 @EnableScheduling
 public class ScheduleTask {
+
 	@Scheduled(fixedRate = 5000)
 	public void job1() {
 		System.out.println("定时任务1" + new Date());

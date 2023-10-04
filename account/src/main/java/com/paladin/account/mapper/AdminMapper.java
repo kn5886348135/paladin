@@ -2,7 +2,7 @@ package com.paladin.account.mapper;
 
 import com.paladin.account.entity.Admin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import io.lettuce.core.dynamic.annotation.Param;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>

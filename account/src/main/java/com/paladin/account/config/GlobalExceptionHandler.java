@@ -1,7 +1,5 @@
 package com.paladin.account.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.paladin.account.resp.RespResult;
 import com.paladin.account.resp.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,117 +44,120 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(BindException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult bindExceptionHandler(BindException bindException) {
+	public String bindExceptionHandler(BindException bindException) {
 		List<String> message = new ArrayList<>();
 		for (ObjectError objectError : bindException.getAllErrors()) {
 			message.add(objectError.getDefaultMessage());
 		}
-		return new RespResult().message(message.stream().collect(Collectors.joining(", ")));
+		return message.stream().collect(Collectors.joining(", "));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException methodArgumentNotValidException) {
+	public String methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException methodArgumentNotValidException) {
 		List<String> message = new ArrayList<>();
 		for (ObjectError objectError : methodArgumentNotValidException.getAllErrors()) {
 			message.add(objectError.getDefaultMessage());
 		}
-		return new RespResult().message(message.stream().collect(Collectors.joining(", ")));
+		return message.stream().collect(Collectors.joining(", "));
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult constraintViolationExceptionExceptionHandler(ConstraintViolationException constraintViolationException) {
+	public String constraintViolationExceptionExceptionHandler(ConstraintViolationException constraintViolationException) {
 		Set<ConstraintViolation<?>> sets = constraintViolationException.getConstraintViolations();
 		// interpolatedMessage和messageTemplate有什么区别？
 		List<String> list = new ArrayList<>();
 		for (ConstraintViolation<?> set : sets) {
 			list.add(set.getMessageTemplate());
 		}
-		return new RespResult().message(list.stream().collect(Collectors.joining(", ")));
+		return list.stream().collect(Collectors.joining(", "));
 	}
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException httpMessageNotReadableException) {
+	public String httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException httpMessageNotReadableException) {
 		// TODO: 2022/2/12
 		// 如何将message中的类、方法信息去掉？可能有些场景没有冒号，所以用冒号分割并不严谨
-		return new RespResult().message(httpMessageNotReadableException.getMessage());
+		return httpMessageNotReadableException.getMessage();
 	}
 
 	@ExceptionHandler(MethodNotAllowedException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult methodNotAllowedExceptionHandler(MethodNotAllowedException methodNotAllowedException) {
-		return new RespResult().message(methodNotAllowedException.getMessage());
+	public String methodNotAllowedExceptionHandler(MethodNotAllowedException methodNotAllowedException) {
+		return methodNotAllowedException.getMessage();
 	}
 
 	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException methodArgumentTypeMismatchException) {
-		return new RespResult().message(methodArgumentTypeMismatchException.getMessage());
+	public String methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException methodArgumentTypeMismatchException) {
+		return methodArgumentTypeMismatchException.getMessage();
 	}
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
-		return new RespResult().message(httpRequestMethodNotSupportedException.getMessage());
+	public String httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
+		return httpRequestMethodNotSupportedException.getMessage();
 	}
 
 	@ExceptionHandler(HttpMediaTypeNotSupportedException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult httpMediaTypeNotSupportedExceptionHandler(HttpMediaTypeNotSupportedException httpMediaTypeNotSupportedException) {
-		return new RespResult().message(httpMediaTypeNotSupportedException.getMessage());
+	public String httpMediaTypeNotSupportedExceptionHandler(HttpMediaTypeNotSupportedException httpMediaTypeNotSupportedException) {
+		return httpMediaTypeNotSupportedException.getMessage();
 	}
 
 	@ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult httpMediaTypeNotAcceptableExceptionHandler(HttpMediaTypeNotAcceptableException httpMediaTypeNotAcceptableException) {
-		return new RespResult().message(httpMediaTypeNotAcceptableException.getMessage());
+	public String httpMediaTypeNotAcceptableExceptionHandler(HttpMediaTypeNotAcceptableException httpMediaTypeNotAcceptableException) {
+		return httpMediaTypeNotAcceptableException.getMessage();
 	}
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException missingServletRequestParameterException) {
-		return new RespResult().message(missingServletRequestParameterException.getMessage());
+	public String missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException missingServletRequestParameterException) {
+		return missingServletRequestParameterException.getMessage();
 	}
 
 	@ExceptionHandler(NoHandlerFoundException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult noHandlerFoundExceptionHandler(NoHandlerFoundException noHandlerFoundException) {
-		return new RespResult().message(noHandlerFoundException.getMessage());
+	public String noHandlerFoundExceptionHandler(NoHandlerFoundException noHandlerFoundException) {
+		return noHandlerFoundException.getMessage();
 	}
 
 	@ExceptionHandler(NumberFormatException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult numberFormatExceptionHandler(NumberFormatException numberFormatException) {
+	public String numberFormatExceptionHandler(NumberFormatException numberFormatException) {
 		// TODO: 2022/2/12 没有验证
-		return new RespResult().message(numberFormatException.getMessage());
+		return numberFormatException.getMessage();
 	}
 
 	@ExceptionHandler(HttpMessageConversionException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult httpMessageConversionExceptionHandler(HttpMessageConversionException httpMessageConversionException) {
+	public String httpMessageConversionExceptionHandler(HttpMessageConversionException httpMessageConversionException) {
 		// TODO: 2022/2/12 没有验证
-		return new RespResult().message(httpMessageConversionException.getMessage());
+		return httpMessageConversionException.getMessage();
 	}
 
 	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public RespResult maxUploadSizeExceededExceptionHandler(MaxUploadSizeExceededException maxUploadSizeExceededException) {
+	public String maxUploadSizeExceededExceptionHandler(MaxUploadSizeExceededException maxUploadSizeExceededException) {
 		// TODO: 2022/2/12 没有验证
-		return new RespResult().message(maxUploadSizeExceededException.getMessage());
+		return maxUploadSizeExceededException.getMessage();
 	}
 
 	@ExceptionHandler(value = Exception.class)
 	@ResponseBody
-	public RespResult globalExceptionHandler(Exception exception) throws JsonProcessingException {
+	public String globalExceptionHandler(Exception exception) {
 		if (exception instanceof ServiceException) {
 			ServiceException serviceException = (ServiceException) exception;
-			return new RespResult().message(serviceException.getMessage());
+			LOGGER.error("ServiceException", exception);
+			return serviceException.getMessage();
 		} else if (exception instanceof SQLException) {
-			return new RespResult().message("SQL异常");
+			LOGGER.error("SQLException", exception);
+			return "SQL异常";
 		} else {
-			return new RespResult().message(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
+			LOGGER.error("Exception", exception);
+			return HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
 		}
 	}
 }

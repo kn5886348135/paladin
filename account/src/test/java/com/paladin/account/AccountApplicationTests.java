@@ -25,42 +25,31 @@ class AccountApplicationTests {
 	@Test
 	public void testMapStructPropertyCopy(){
 		UserDTO userDTO = buildUserDTO();
-		System.out.println(userDTO.toString());
 
 		UserVO userVO = UserMapper.INSTANCE.userVOToUserDTO(userDTO);
-		System.out.println("result is convert success");
-		System.out.println(userVO);
 	}
 
 	@Test
 	public void testSpringBeanUtilsPropertyCopy(){
 		UserDTO userDTO = buildUserDTO();
-		System.out.println(userDTO.toString());
 
 
 		UserVO userVO = new UserVO();
 		BeanUtils.copyProperties(userDTO, userVO);
-		System.out.println("result is convert success");
-		System.out.println(userVO);
 	}
 
 	@Test
 	public void testApacheBeanUtilsPropertyCopy(){
 		UserDTO userDTO = buildUserDTO();
-		System.out.println(userDTO.toString());
 
 
 		UserVO userVO = new UserVO();
 		try {
 			BeanUtilsBean.getInstance().copyProperties(userVO, userDTO);
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
 		}
 
-		System.out.println("result is convert success");
-		System.out.println(userVO);
 	}
 
 	private UserDTO buildUserDTO() {

@@ -1,16 +1,12 @@
 package com.paladin.account.controller;
 
-
 import com.paladin.account.entity.ProductCategory;
-import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IProductCategoryService;
 import com.paladin.account.vo.ProductCategoryTreeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -46,42 +42,34 @@ public class ProductCategoryController {
 	}
 
 	@PostMapping(value = "/新增产品分类", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-			@ApiResponse(code = 500, message = "服务器内部错误")})
 	@ApiImplicitParams({@ApiImplicitParam(name = "")})
-	@ApiOperation(value = "添加产品分类", notes = "添加产品分类", response = RespOk.class)
-	public RespOk addProductCategory(@RequestBody ProductCategory productCategory) {
-		boolean result = productCategoryService.save(productCategory);
-		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
+	@ApiOperation(value = "添加产品分类", notes = "添加产品分类", response = void.class)
+	public void addProductCategory(@RequestBody ProductCategory productCategory) {
+		productCategoryService.save(productCategory);
 	}
 
-	@ApiOperation(value = "删除产品分类", notes = "删除产品分类", response = RespOk.class)
+	@ApiOperation(value = "删除产品分类", notes = "删除产品分类", response = void.class)
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
 			MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteProductCategory(@RequestBody ProductCategory productCategory) {
-		boolean result = productCategoryService.removeById(productCategory.getId());
-		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	public void deleteProductCategory(@RequestBody ProductCategory productCategory) {
+		productCategoryService.removeById(productCategory.getId());
 	}
 
-	@ApiOperation(value = "修改产品分类", notes = "修改产品分类", response = RespOk.class)
+	@ApiOperation(value = "修改产品分类", notes = "修改产品分类", response = void.class)
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyProductCategory(@RequestBody ProductCategory productCategory) {
-		boolean result = productCategoryService.updateById(productCategory);
-		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	public void modifyProductCategory(@RequestBody ProductCategory productCategory) {
+		productCategoryService.updateById(productCategory);
 	}
 
-	@ApiOperation(value = "查询产品分类详情", notes = "查询产品分类详情", response = RespOk.class)
+	@ApiOperation(value = "查询产品分类详情", notes = "查询产品分类详情", response = void.class)
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findProductCategory(@RequestBody ProductCategory productCategory) {
-		ProductCategory result = productCategoryService.getById(productCategory);
-		return new RespOk(200, "查询成功", result);
+	public ProductCategory findProductCategory(@RequestBody ProductCategory productCategory) {
+		return productCategoryService.getById(productCategory);
 	}
 
 	@GetMapping(value = "/tree", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "查询产品分类树", notes = "查询产品分类树", responseContainer = "List", response = RespOk.class)
-	public RespOk findProductCategoryTree() {
-		List<ProductCategoryTreeVO> productCategoryVOList = productCategoryService.selectProductCategoryTree();
-		return new RespOk(200, "查询成功", productCategoryVOList);
+	@ApiOperation(value = "查询产品分类树", notes = "查询产品分类树", responseContainer = "List", response = ProductCategory.class)
+	public List<ProductCategoryTreeVO> findProductCategoryTree() {
+		return productCategoryService.selectProductCategoryTree();
 	}
 }

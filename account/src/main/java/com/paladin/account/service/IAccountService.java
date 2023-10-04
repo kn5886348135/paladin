@@ -15,9 +15,11 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface IAccountService extends IService<Account> {
 
-	String register(Account account);
+	String register(Account account) throws NoSuchAlgorithmException;
 
-	boolean login(String accountName, String passwd);
+	String login(String accountName, String passwd);
+
+	String logout(String accountName, String passwd);
 
 	/**
 	 * 生成验证码，使用{@link java.security.SecureRandom}或者{@link java.util.concurrent.ThreadLocalRandom}

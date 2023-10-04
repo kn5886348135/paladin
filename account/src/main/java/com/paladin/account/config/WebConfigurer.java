@@ -1,6 +1,5 @@
 package com.paladin.account.config;
 
-import com.paladin.account.resp.RespResult;
 import com.paladin.account.resp.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,7 +66,7 @@ public class WebConfigurer implements WebMvcConfigurer {
 	// 配置全局异常处理
 	@Override
 	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-//        exceptionResolvers.add(getHandlerExceptionResolver());
+		// exceptionResolvers.add(getHandlerExceptionResolver());
 	}
 
 	/**
@@ -81,7 +79,7 @@ public class WebConfigurer implements WebMvcConfigurer {
 			@Override
 			public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response,
 			                                     Object handler, Exception e) {
-				getResuleByHeandleException(request, handler, e);
+				getResultByHeandleException(request, handler, e);
 				return new ModelAndView();
 			}
 		};
@@ -96,23 +94,21 @@ public class WebConfigurer implements WebMvcConfigurer {
 	 * @param e
 	 * @return
 	 */
-	private RespResult getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e) {
-		RespResult result = new RespResult();
+	private Object getResultByHeandleException(HttpServletRequest request, Object handler, Exception e) {
 		if (e instanceof ServiceException) {
-//            result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
+			// result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
 		}
 
 		if (e instanceof NoHandlerFoundException) {
-//            result.buildNotFounde(500, request.getRequestURI() + "NoHandlerFoundException ", e.getMessage());
+			// result.buildNotFounde(500, request.getRequestURI() + "NoHandlerFoundException ", e.getMessage());
 		}
 
-//        result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
+		// result.buildInternalServerError(500, request.getRequestURI() + "ServiceException ", e.getMessage());
 		return null;
 	}
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new LocaleChangeInterceptor());
 		registry.addInterceptor(new ThemeChangeInterceptor()).addPathPatterns("/**").excludePathPatterns("/admin/**");
 	}
 

@@ -2,17 +2,16 @@ package com.paladin.account.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.Account;
-import com.paladin.account.resp.RespOk;
-import com.paladin.account.resp.RespResult;
 import com.paladin.account.service.IAccountService;
+import com.paladin.account.util.message.MessageEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -44,74 +44,73 @@ public class AccountController {
 
 	private IAccountService accountService;
 
-	public AccountController(IAccountService accountService) {
+	private MessageSource messageSource;
+
+	public AccountController(IAccountService accountService, MessageSource messageSource) {
 		this.accountService = accountService;
+		this.messageSource = messageSource;
 	}
 
-	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-			@ApiResponse(code = 500, message = "服务器内部错误")})
-	@ApiImplicitParams({@ApiImplicitParam})
-	@ApiOperation(value = "添加用户", notes = "添加用户", response = RespOk.class)
-	public RespOk register(@Validated @RequestBody Account account) {
-		String result = accountService.register(account);
-		return new RespOk(200, result);
+	@PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiImplicitParams({@ApiImplicitParam(name = "accountName", defaultValue = "", required = true),
+			@ApiImplicitParam(name = "passwd", defaultValue = "", required = true)})
+	@ApiOperation(value = "用户注册", notes = "用户注册", response = String.class)
+	public String register(@Validated @RequestBody Account account) throws NoSuchAlgorithmException {
+		return accountService.register(account);
 	}
 
-	@DeleteMapping(value = "/unRegist", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-            MediaType.APPLICATION_JSON_VALUE)
-	public RespOk unRegist(@RequestBody Account account) {
+	@DeleteMapping(value = "/unRegist", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiImplicitParams({@ApiImplicitParam(name = "accountId", defaultValue = "", required = true),
+			@ApiImplicitParam(name = "phone", defaultValue = "", required = true)})
+	@ApiOperation(value = "用户注销", notes = "用户注销", response = String.class)
+	public String unRegist(@RequestBody Account account) {
 		boolean result = accountService.removeById(account.getId());
-		return result ? new RespOk(200, "注销成功") : new RespOk(200, "注销失败");
+		return result ? messageSource.getMessage(MessageEnum.UNREGISTER_SUCCESS.getKey(), null,
+				LocaleContextHolder.getLocale()) : messageSource.getMessage(MessageEnum.UNREGISTER_FAILED.getKey(),
+				null, LocaleContextHolder.getLocale());
 	}
 
 	@PutMapping(value = "/password", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyAccount(@RequestBody Account account) {
+	@ApiImplicitParams({@ApiImplicitParam(name = "accountId", defaultValue = "", required = true),
+			@ApiImplicitParam(name = "passwd", defaultValue = "", required = true)})
+	@ApiOperation(value = "修改密码", notes = "修改密码", response = String.class)
+	public String modifyAccount(@RequestBody Account account) {
 		boolean result = accountService.updateById(account);
-		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+		return result ? messageSource.getMessage(MessageEnum.PASSWORD_MODIFY_SUCCESS.getKey(), null,
+				LocaleContextHolder.getLocale()) :
+				messageSource.getMessage(MessageEnum.PASSWORD_MODIFY_FAILED.getKey(), null,
+						LocaleContextHolder.getLocale());
 	}
 
 	@PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk login(@RequestBody Account account) {
+	@ApiImplicitParams({@ApiImplicitParam(name = "accountName", defaultValue = "", required = true),
+			@ApiImplicitParam(name = "passwd", defaultValue = "", required = true)})
+	@ApiOperation(value = "用户登录", notes = "用户登录", response = String.class)
+	public String login(@RequestBody Account account) {
 		String accountName = account.getAccountName();
 		String passwd = account.getPasswd();
-		boolean result = accountService.login(accountName, passwd);
-		if (result) {
-			return new RespOk(200, "登录成功", result);
-		}else {
-			RespResult res = new RespResult();
-			res.setMessage("用户名或者密码不存在");
-			return null;
-		}
+		return accountService.login(accountName, passwd);
 	}
 
 	@GetMapping(value = "/logout", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk logout(@RequestParam String accountName, @RequestParam String passwd) {
-		boolean result = accountService.login(accountName, passwd);
-		if (result) {
-			return new RespOk(200, "查询成功", result);
-		} else {
-			RespResult res = new RespResult();
-			res.setMessage("用户名或者密码不存在");
-			return null;
-		}
+	@ApiImplicitParams({@ApiImplicitParam(name = "accountId", defaultValue = "", required = true)})
+	@ApiOperation(value = "用户登出", notes = "用户登出", response = String.class)
+	public String logout(@RequestParam String accountName, @RequestParam String passwd) {
+		return accountService.logout(accountName, passwd);
+
 	}
 
 	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
             MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = RespOk.class)
-	public RespOk findAccountList(@RequestBody Account account) {
-		List<Account> accountList = accountService.list(new QueryWrapper<>(account));
-		return new RespOk(200, "查询成功", accountList);
+	@ApiOperation(value = "批量查询用户", notes = "批量查询用户", responseContainer = "List", response = Account.class)
+	public List<Account> findAccountList(@RequestBody Account account) {
+		return accountService.list(new QueryWrapper<>(account));
 	}
 
 	@ApiOperation("返回验证码")
 	@ApiImplicitParams(@ApiImplicitParam(name = "username"))
 	@GetMapping(value = "/code", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk getVerifyCode(@RequestParam("username") String username) {
-		String verifyCode = accountService.getVerifyCode(username);
-		return new RespOk(200, "查询成功", verifyCode);
+	public String getVerifyCode(String username) {
+		return accountService.getVerifyCode(username);
 	}
-
 }

@@ -1,13 +1,11 @@
 package com.paladin.account.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.MemberStatisticsInfo;
-import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IMemberStatisticsInfoService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -36,46 +33,37 @@ public class MemberStatisticsInfoController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MemberStatisticsInfoController.class);
 
-	@Resource
 	private IMemberStatisticsInfoService memberStatisticsInfoService;
 
-	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-			@ApiResponse(code = 500, message = "服务器内部错误")})
-//    @ApiImplicitParams({@ApiImplicitParam})
-	@ApiOperation(value = "添加会员统计信息", notes = "添加会员统计信息", response = RespOk.class)
-	public RespOk addCarItem(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
-		boolean result = memberStatisticsInfoService.save(memberStatisticsInfo);
-		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
+	public MemberStatisticsInfoController(IMemberStatisticsInfoService memberStatisticsInfoService) {
+		this.memberStatisticsInfoService = memberStatisticsInfoService;
 	}
 
-	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
-		boolean result = memberStatisticsInfoService.removeById(memberStatisticsInfo.getId());
-		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({@ApiImplicitParam})
+	@ApiOperation(value = "添加会员统计信息", notes = "添加会员统计信息")
+	public void addCarItem(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
+		memberStatisticsInfoService.save(memberStatisticsInfo);
+	}
+
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
+		memberStatisticsInfoService.removeById(memberStatisticsInfo.getId());
 	}
 
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
-		boolean result = memberStatisticsInfoService.updateById(memberStatisticsInfo);
-		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	public void modifyAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
+		memberStatisticsInfoService.updateById(memberStatisticsInfo);
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
-		MemberStatisticsInfo result = memberStatisticsInfoService.getById(memberStatisticsInfo);
-		return new RespOk(200, "查询成功", result);
+	public MemberStatisticsInfo findAccount(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
+		return memberStatisticsInfoService.getById(memberStatisticsInfo);
 	}
 
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询会员统计信息", notes = "批量查询会员统计信息", responseContainer = "List", response = RespOk.class)
-	public RespOk findAccountList(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
-		List<MemberStatisticsInfo> memberStatisticsInfoList =
-				memberStatisticsInfoService.list(new QueryWrapper<>(memberStatisticsInfo));
-		return new RespOk(200, "查询成功", memberStatisticsInfoList);
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询会员统计信息", notes = "批量查询会员统计信息", responseContainer = "List", response = MemberStatisticsInfo.class)
+	public List<MemberStatisticsInfo> findAccountList(@RequestBody MemberStatisticsInfo memberStatisticsInfo) {
+		return memberStatisticsInfoService.list(new QueryWrapper<>(memberStatisticsInfo));
 	}
-
 }

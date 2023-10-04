@@ -5,18 +5,20 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.paladin.account.entity.Account;
 import com.paladin.account.mapper.AccountMapper;
 import com.paladin.account.service.IAccountService;
-import com.paladin.account.util.Constants;
-import com.paladin.account.util.MD5Utils;
-import io.rebloom.client.Client;
+import com.paladin.account.util.message.MessageEnum;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,58 +34,72 @@ import java.util.concurrent.TimeUnit;
  * @since 2020-08-31
  */
 @Service
+@Validated
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements IAccountService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);
 
-	private AccountMapper accountMapper;
-
 	private RedisTemplate redisTemplate;
 
-	public AccountServiceImpl(AccountMapper accountMapper, RedisTemplate redisTemplate) {
-		this.accountMapper = accountMapper;
+	private MessageSource messageSource;
+
+	public AccountServiceImpl(RedisTemplate redisTemplate, MessageSource messageSource) {
 		this.redisTemplate = redisTemplate;
+		this.messageSource = messageSource;
 	}
 
 	@Override
-	public String register(Account account) {
+	public String register(Account account) throws NoSuchAlgorithmException{
 		String passwd = account.getPasswd();
 		// 密码加密
-		passwd = passwd + Constants.salt;
-		passwd = MD5Utils.md5Sign(passwd);
+		// passwd = passwd + Constants.salt;
+		passwd = digestSHA256(passwd);
 		account.setPasswd(passwd);
 		Object verifyCode = redisTemplate.opsForValue().get(account.getAccountName());
 		if (ObjectUtils.isEmpty(verifyCode)) {
-			return "验证码失效";
+			return messageSource.getMessage(MessageEnum.REGISTER_VERIFY_CODE_MISS.getKey(), null, LocaleContextHolder.getLocale());
 		}
 		if (!verifyCode.toString().equals(account.getCode())) {
-			return "验证码错误";
+			return messageSource.getMessage(MessageEnum.REGISTER_VERIFY_CODE_ERROR.getKey(), null, LocaleContextHolder.getLocale());
 		}
 
 		// 用户名去重,可以加载redis的bloom模块，使用bloom Filter实现
+		// Client client = new Client(jedis);
+		// client.exists(account.getAccountName(), account.getCode());
 		Account accountQueryWrapper = new Account();
 		accountQueryWrapper.setAccountName(account.getAccountName());
+		// 自动填充主键为0
 		List<Account> accountList = list(new QueryWrapper<>(accountQueryWrapper));
-		if (accountList != null || accountList.size() > 0) {
-			return "用户名已经存在";
+		if (CollectionUtils.isNotEmpty(accountList)) {
+			return messageSource.getMessage(MessageEnum.REGISTER_USERNAME_EXIST.getKey(), null, LocaleContextHolder.getLocale());
 		}
-		boolean result = save(account);
-		return result ? "注册成功" : "注册失败";
+
+		return save(account) ? messageSource.getMessage(MessageEnum.REGISTER_SUCCESS.getKey(), null,
+				LocaleContextHolder.getLocale()) : messageSource.getMessage(MessageEnum.REGISTER_FAILED.getKey(), null
+				, LocaleContextHolder.getLocale());
 	}
 
 	@Override
-	public boolean login(String accountName, String passwd) {
+	public String login(String accountName, String passwd) {
 		Account account = new Account();
-		passwd = passwd + Constants.salt;
-		passwd = MD5Utils.md5Sign(passwd);
+//		passwd = passwd + Constants.salt;
+//		passwd = MD5Utils.md5Sign(passwd);
 		account.setAccountName(accountName);
 		account.setPasswd(passwd);
+		LOGGER.info("passwd is {}", passwd);
 		Map<String, Object> columnMap = new HashMap<>();
 		columnMap.put("account_name", accountName);
 		columnMap.put("passwd", passwd);
 		List<Account> accountlis = listByMap(columnMap);
 
-		return accountlis.size() == 1 ? true : false;
+		return accountlis.size() == 1 ? messageSource.getMessage(MessageEnum.LOGIN_SUCCESS.getKey(), null,
+				LocaleContextHolder.getLocale()) : messageSource.getMessage(MessageEnum.LOGIN_FAILED.getKey(), null,
+				LocaleContextHolder.getLocale());
+	}
+
+	@Override
+	public String logout(String accountName, String passwd) {
+		return null;
 	}
 
 	@Override
@@ -97,6 +113,30 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 			verifyCode = random;
 		}
 		return verifyCode.toString();
+	}
+
+	private static String digestSHA256(String str) throws NoSuchAlgorithmException {
+		MessageDigest messageDigest;
+		String encodeStr = "";
+		try {
+			messageDigest = MessageDigest.getInstance("SHA-1");
+			messageDigest.update(str.getBytes(StandardCharsets.UTF_8));
+			StringBuilder stringBuilder = new StringBuilder();
+			String temp;
+			byte[] bytes = messageDigest.digest();
+			for (byte aByte : bytes) {
+				temp = Integer.toHexString(aByte & 0xFF);
+				if (temp.length() == 1) {
+					//1得到一位的进行补0操作
+					stringBuilder.append("0");
+				}
+				stringBuilder.append(temp);
+			}
+			return stringBuilder.toString();
+		} catch (NoSuchAlgorithmException exp) {
+			LOGGER.error(" no such algorithm exception {}", exp);
+			throw exp;
+		}
 	}
 
 }

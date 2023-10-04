@@ -1,13 +1,11 @@
 package com.paladin.account.controller;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.paladin.account.entity.ProductAttributeCategory;
-import com.paladin.account.resp.RespOk;
 import com.paladin.account.service.IProductAttributeCategoryService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -36,45 +33,33 @@ public class ProductAttributeCategoryController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductAttributeCategoryController.class);
 
-	@Resource
 	private IProductAttributeCategoryService productAttributeCategoryService;
 
 	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ApiResponses({@ApiResponse(code = 200, message = "添加成功"), @ApiResponse(code = 400, message = "请求错误"),
-			@ApiResponse(code = 403, message = "请求被拒绝"), @ApiResponse(code = 404, message = "请求路径不存在"),
-			@ApiResponse(code = 500, message = "服务器内部错误")})
-//    @ApiImplicitParams({@ApiImplicitParam})
-	@ApiOperation(value = "添加产品属性分类", notes = "添加产品属性分类", response = RespOk.class)
-	public RespOk addProductAttributeCategory(@RequestBody ProductAttributeCategory productAttributeCategory) {
-		boolean result = productAttributeCategoryService.save(productAttributeCategory);
-		return result ? new RespOk(200, "添加成功") : new RespOk(200, "添加失败");
+    @ApiImplicitParams({@ApiImplicitParam})
+	@ApiOperation(value = "添加产品属性分类", notes = "添加产品属性分类")
+	public void addProductAttributeCategory(@RequestBody ProductAttributeCategory productAttributeCategory) {
+		productAttributeCategoryService.save(productAttributeCategory);
 	}
 
-	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
-	public RespOk deleteAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
-		boolean result = productAttributeCategoryService.removeById(productAttributeCategory.getId());
-		return result ? new RespOk(200, "删除成功") : new RespOk(200, "删除失败");
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void deleteAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
+		productAttributeCategoryService.removeById(productAttributeCategory.getId());
 	}
 
 	@PutMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk modifyAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
-		boolean result = productAttributeCategoryService.updateById(productAttributeCategory);
-		return result ? new RespOk(200, "修改成功") : new RespOk(200, "修改失败");
+	public void modifyAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
+		productAttributeCategoryService.updateById(productAttributeCategory);
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public RespOk findAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
-		ProductAttributeCategory result = productAttributeCategoryService.getById(productAttributeCategory);
-		return new RespOk(200, "查询成功", result);
+	public ProductAttributeCategory findAccount(@RequestBody ProductAttributeCategory productAttributeCategory) {
+		return productAttributeCategoryService.getById(productAttributeCategory);
 	}
 
-	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
-			MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "批量查询产品属性分类", notes = "批量查询产品属性分类", responseContainer = "List", response = RespOk.class)
-	public RespOk findAccountList(@RequestBody ProductAttributeCategory productAttributeCategory) {
-		List<ProductAttributeCategory> productAttributeCategoryList =
-				productAttributeCategoryService.list(new QueryWrapper<>(productAttributeCategory));
-		return new RespOk(200, "查询成功", productAttributeCategoryList);
+	@GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "批量查询产品属性分类", notes = "批量查询产品属性分类", responseContainer = "List", response = ProductAttributeCategory.class)
+	public List<ProductAttributeCategory> findAccountList(@RequestBody ProductAttributeCategory productAttributeCategory) {
+		return productAttributeCategoryService.list(new QueryWrapper<>(productAttributeCategory));
 	}
 }

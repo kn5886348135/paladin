@@ -17,7 +17,7 @@
 //@Configuration
 //public class DruidDataSourceConfigurer {
 //
-//    private Logger logger = LoggerFactory.getLogger(DruidDataSourceConfigurer.class);
+//    private static final Logger LOGGER = LoggerFactory.getLogger(DruidDataSourceConfigurer.class);
 //
 //    @Value("${spring.datasource.url}")
 //    private String dbUrl;
